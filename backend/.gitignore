@@ -33,4 +33,5 @@ build/
 .vscode/
 
 ### Backend ###
-docker-compose.yaml
+application.yml
+docker-compose.yml
