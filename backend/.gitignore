@@ -1,10 +1,11 @@
 HELP.md
+application.yml
+docker-compose.yml
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-application.yml
-docker-compose.yml
+
 
 
 ### STS ###
