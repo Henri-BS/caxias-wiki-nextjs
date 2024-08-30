@@ -30,4 +30,5 @@ public class Image {
     private ImageExtension imageExtension;
     @Lob
     private byte[] file;
+
 }

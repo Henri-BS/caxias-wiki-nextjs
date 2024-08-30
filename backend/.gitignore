@@ -3,6 +3,9 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+application.yml
+docker-compose.yml
+
 
 ### STS ###
 .apt_generated
@@ -31,7 +34,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### Backend ###
-application.yml
-docker-compose.yml

@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:8080/caxiasdestiny
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://localhost:5432/caxiasdestiny
+    username: caxiasdb
+    password: caxiasma99
   jpa:
     database: POSTGRESQL
     hibernate:

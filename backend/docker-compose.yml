@@ -3,8 +3,8 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: caxiasdb
+      POSTGRES_PASSWORD: caxiasma99
       POSTGRES_DB: caxiasdestiny
     ports:
       - '5432:5432'
