@@ -23,6 +23,7 @@ public class Image {
     @Column(name = "image_id")
     private UUID id;
     private String name;
+    private Long size;
     private String font;
     @CreatedDate
     private LocalDateTime uplaodDate;
@@ -31,4 +32,7 @@ public class Image {
     @Lob
     private byte[] file;
 
+    @ManyToOne
+    @JoinColumn(name = "story_id")
+    private Story story;
 }

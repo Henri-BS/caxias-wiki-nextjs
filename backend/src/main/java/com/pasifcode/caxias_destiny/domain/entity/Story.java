@@ -24,7 +24,9 @@ public class Story {
     private String name;
     @Column(columnDefinition = "TEXT")
     private String description;
+    private String location;
     private String tags;
 
-
+@OneToMany(mappedBy = "story")
+    private  Set<Image> images = new HashSet<>();
 }
