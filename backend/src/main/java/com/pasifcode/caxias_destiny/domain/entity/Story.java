@@ -6,7 +6,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -20,13 +19,11 @@ public class Story {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "story_id")
-    private UUID id;
+    private String id;
     private String name;
     @Column(columnDefinition = "TEXT")
     private String description;
     private String locations;
     private String tags;
 
-@OneToMany(mappedBy = "story")
-    private  Set<Image> images = new HashSet<>();
 }

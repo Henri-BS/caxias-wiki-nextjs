@@ -7,7 +7,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -26,15 +25,13 @@ public class Image {
     private Long size;
     private String font;
     @CreatedDate
-    private LocalDateTime uplaodDate;
+    private LocalDateTime uploadDate;
     @Enumerated(EnumType.STRING)
     private ImageExtension imageExtension;
     @Lob
     private byte[] file;
 
-    @ManyToOne
-    @JoinColumn(name = "story_id")
-    private Story story;
+
 
     public String getFileName(){
         return getName().concat(".").concat(getImageExtension().name());

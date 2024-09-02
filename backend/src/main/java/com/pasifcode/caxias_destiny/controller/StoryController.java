@@ -1,20 +1,18 @@
 package com.pasifcode.caxias_destiny.controller;
 
-import com.pasifcode.caxias_destiny.domain.entity.Image;
 import com.pasifcode.caxias_destiny.domain.entity.Story;
+import com.pasifcode.caxias_destiny.dto.StoryDto;
 import com.pasifcode.caxias_destiny.mapper.StoryMapper;
 import com.pasifcode.caxias_destiny.service.interf.StoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/stories")
@@ -41,6 +39,17 @@ public class StoryController {
 
         return ResponseEntity.created(storyUri).build();
     }
+
+    @GetMapping
+    public ResponseEntity<List<StoryDto>> search(
+            @RequestParam(value = "query", required = false, defaultValue = "") String query){
+        var result =  storyService.searchStory(query);
+        var stories = result.stream().map(storyMapper::storyToDto).toList();
+
+    return ResponseEntity.ok(stories);
+    }
+
+
     private URI buildStoryURL(Story story){
         String storyPath = "/" + story.getId();
         return ServletUriComponentsBuilder
