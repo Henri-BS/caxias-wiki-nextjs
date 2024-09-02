@@ -1,5 +1,6 @@
 package com.pasifcode.caxias_destiny.domain.enums;
 
+import lombok.Getter;
 import org.springframework.http.MediaType;
 
 import java.util.Arrays;
@@ -9,6 +10,7 @@ public enum ImageExtension {
     GIF(MediaType.IMAGE_GIF),
     JPEG(MediaType.IMAGE_JPEG);
 
+    @Getter
     private MediaType mediaType;
 
     ImageExtension(MediaType mediaType){
@@ -21,4 +23,6 @@ public enum ImageExtension {
                 .findFirst()
                 .orElse(null);
     }
+
+
 }

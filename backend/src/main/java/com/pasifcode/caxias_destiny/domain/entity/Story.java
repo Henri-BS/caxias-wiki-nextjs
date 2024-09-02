@@ -24,7 +24,7 @@ public class Story {
     private String name;
     @Column(columnDefinition = "TEXT")
     private String description;
-    private String location;
+    private String locations;
     private String tags;
 
 @OneToMany(mappedBy = "story")

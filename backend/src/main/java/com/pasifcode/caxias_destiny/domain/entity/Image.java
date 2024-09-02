@@ -21,7 +21,7 @@ public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "image_id")
-    private UUID id;
+    private String id;
     private String name;
     private Long size;
     private String font;
@@ -35,4 +35,8 @@ public class Image {
     @ManyToOne
     @JoinColumn(name = "story_id")
     private Story story;
+
+    public String getFileName(){
+        return getName().concat(".").concat(getImageExtension().name());
+    }
 }
