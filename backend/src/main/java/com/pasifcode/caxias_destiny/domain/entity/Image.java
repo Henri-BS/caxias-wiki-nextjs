@@ -27,13 +27,13 @@ public class Image {
     @CreatedDate
     private LocalDateTime uploadDate;
     @Enumerated(EnumType.STRING)
-    private ImageExtension imageExtension;
+    private ImageExtension extension;
     @Lob
     private byte[] file;
 
 
 
     public String getFileName(){
-        return getName().concat(".").concat(getImageExtension().name());
+        return getName().concat(".").concat(getExtension().name());
     }
 }

@@ -16,19 +16,21 @@ public class ImageMapper {
                 .name(name)
                 .font(font)
                 .size(file.getSize())
-                .imageExtension(ImageExtension.valueOf(MediaType.valueOf(file.getContentType())))
+                .extension(ImageExtension.valueOf(MediaType.valueOf(file.getContentType())))
                 .file(file.getBytes())
                 .build();
     }
 
-    public ImageDto mapToImage(String url, Image entity) throws IOException {
+    public ImageDto imageToDto(Image entity, String url) throws IOException {
         return ImageDto.builder()
                 .url(url)
-                .imageExtension(entity.getImageExtension().name())
+                .imageExtension(entity.getExtension().name())
                 .name(entity.getName())
                 .font(entity.getFont())
                 .size(entity.getSize())
                 .uploadDate(entity.getUploadDate())
                 .build();
     }
+
+
 }
