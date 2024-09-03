@@ -20,6 +20,7 @@ public class StoryMapper {
 
     public StoryDto storyToDto(Story entity){
         return StoryDto.builder()
+                .id(entity.getId())
                 .name(entity.getName())
                 .description(entity.getDescription())
                 .build();

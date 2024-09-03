@@ -6,6 +6,8 @@ import com.pasifcode.caxias_destiny.application.mapper.StoryMapper;
 import com.pasifcode.caxias_destiny.service.interf.StoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -39,8 +41,15 @@ public class StoryController {
         return ResponseEntity.created(storyUri).build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<StoryDto> findStoryById(@PathVariable String id) {
+        var story = storyService.findStoryById(id);
+        var dto = storyMapper.storyToDto(story);
+        return ResponseEntity.ok(dto);
+    }
+
     @GetMapping
-    public ResponseEntity<List<StoryDto>> search(
+    public ResponseEntity<List<StoryDto>> searchStory(
             @RequestParam(value = "query", required = false, defaultValue = "") String query){
         var result =  storyService.searchStory(query);
         var stories = result.stream().map(storyMapper::storyToDto).toList();
