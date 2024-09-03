@@ -1,8 +1,8 @@
-package com.pasifcode.caxias_destiny.controller;
+package com.pasifcode.caxias_destiny.application.controller;
 
 import com.pasifcode.caxias_destiny.domain.entity.Story;
-import com.pasifcode.caxias_destiny.dto.StoryDto;
-import com.pasifcode.caxias_destiny.mapper.StoryMapper;
+import com.pasifcode.caxias_destiny.domain.dto.StoryDto;
+import com.pasifcode.caxias_destiny.application.mapper.StoryMapper;
 import com.pasifcode.caxias_destiny.service.interf.StoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/stories")

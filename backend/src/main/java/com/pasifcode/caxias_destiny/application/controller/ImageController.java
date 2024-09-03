@@ -1,9 +1,9 @@
-package com.pasifcode.caxias_destiny.controller;
+package com.pasifcode.caxias_destiny.application.controller;
 
 import com.pasifcode.caxias_destiny.domain.entity.Image;
 import com.pasifcode.caxias_destiny.domain.enums.ImageExtension;
-import com.pasifcode.caxias_destiny.dto.ImageDto;
-import com.pasifcode.caxias_destiny.mapper.ImageMapper;
+import com.pasifcode.caxias_destiny.domain.dto.ImageDto;
+import com.pasifcode.caxias_destiny.application.mapper.ImageMapper;
 import com.pasifcode.caxias_destiny.service.interf.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -72,7 +72,6 @@ public class ImageController {
         }).toList();
         return ResponseEntity.ok(images);
     }
-
 
     private URI buildImageURL(Image image) {
         String imagePath = "/" + image.getId();

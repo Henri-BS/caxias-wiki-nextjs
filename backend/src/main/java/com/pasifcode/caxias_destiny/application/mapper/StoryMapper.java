@@ -1,7 +1,7 @@
-package com.pasifcode.caxias_destiny.mapper;
+package com.pasifcode.caxias_destiny.application.mapper;
 
 import com.pasifcode.caxias_destiny.domain.entity.Story;
-import com.pasifcode.caxias_destiny.dto.StoryDto;
+import com.pasifcode.caxias_destiny.domain.dto.StoryDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

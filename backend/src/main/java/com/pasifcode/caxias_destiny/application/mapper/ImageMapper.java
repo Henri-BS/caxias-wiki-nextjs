@@ -1,8 +1,8 @@
-package com.pasifcode.caxias_destiny.mapper;
+package com.pasifcode.caxias_destiny.application.mapper;
 
 import com.pasifcode.caxias_destiny.domain.entity.Image;
 import com.pasifcode.caxias_destiny.domain.enums.ImageExtension;
-import com.pasifcode.caxias_destiny.dto.ImageDto;
+import com.pasifcode.caxias_destiny.domain.dto.ImageDto;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,6 +31,4 @@ public class ImageMapper {
                 .uploadDate(entity.getUploadDate())
                 .build();
     }
-
-
 }

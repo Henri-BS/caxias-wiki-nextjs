@@ -2,7 +2,7 @@ package com.pasifcode.caxias_destiny.service.impl;
 
 import com.pasifcode.caxias_destiny.domain.entity.Image;
 import com.pasifcode.caxias_destiny.domain.enums.ImageExtension;
-import com.pasifcode.caxias_destiny.repository.ImageRepository;
+import com.pasifcode.caxias_destiny.infra.repository.ImageRepository;
 import com.pasifcode.caxias_destiny.service.interf.ImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

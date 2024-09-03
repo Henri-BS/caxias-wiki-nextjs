@@ -1,4 +1,4 @@
-package com.pasifcode.caxias_destiny.repository;
+package com.pasifcode.caxias_destiny.infra.repository;
 
 import com.pasifcode.caxias_destiny.domain.entity.Story;
 import org.springframework.data.jpa.domain.Specification;
