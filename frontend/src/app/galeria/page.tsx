@@ -1,0 +1,9 @@
+import { Template } from "../components/Templeate";
+
+export default function GaleriaPage() {
+    return (
+        <Template>
+            <h1>Galeria</h1>
+        </Template>
+    );
+}
