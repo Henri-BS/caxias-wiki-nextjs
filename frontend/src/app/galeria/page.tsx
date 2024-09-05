@@ -1,24 +1,41 @@
-import { ImageCard } from "../components/ImageCard";
-import { Template } from "../components/Template";
+'use client'
+
+import { useState } from "react";
+import { Template, ImageCard } from "@/components";
+import { Image } from "@/resources/image/image.resource";
+import { useImageService } from "@/resources/image/image.service";
 
 
 export default function GaleriaPage() {
-    return (
-        <Template>            
-            <h1>Galeria</h1>
 
+    const useService = useImageService();
+    const [images, setImages] = useState<Image[]>([]);
+
+    async function searchImages() {
+        const result = await useService.buscar();
+        setImages(result);
+        console.table(result)
+    }
+
+function renderImageCard(image: Image){
+    return(
+<ImageCard 
+nome={image.name} 
+src={image.url} 
+tamanho={image.size} 
+dataUpload={image.uploadDate} />
+    );
+}
+
+function renderimageCards(){
+    return images.map(renderImageCard)
+}
+
+    return (
+        <Template>
+            <button className="bg-gray-500" onClick={searchImages}>Clique para mudar</button>
             <section className="grid grid-cols-4 gap-8">
-                <ImageCard nome="Guerra" tamanho="10mb" dataUpload="01/01/2024" src="https://w.wallha.com/ws/5/fLJMyprK.jpg"/>            
-                <ImageCard nome="Guerra" tamanho="10mb" dataUpload="01/01/2024" src="https://w.wallha.com/ws/5/fLJMyprK.jpg"/>           
-                <ImageCard nome="Guerra" tamanho="10mb" dataUpload="01/01/2024" src="https://w.wallha.com/ws/5/fLJMyprK.jpg"/>           
-                <ImageCard nome="Guerra" tamanho="10mb" dataUpload="01/01/2024" src="https://w.wallha.com/ws/5/fLJMyprK.jpg"/>           
-                <ImageCard nome="Guerra" tamanho="10mb" dataUpload="01/01/2024" src="https://w.wallha.com/ws/5/fLJMyprK.jpg"/>           
-                <ImageCard nome="Guerra" tamanho="10mb" dataUpload="01/01/2024" src="https://w.wallha.com/ws/5/fLJMyprK.jpg"/>           
-                <ImageCard nome="Guerra" tamanho="10mb" dataUpload="01/01/2024" src="https://w.wallha.com/ws/5/fLJMyprK.jpg"/>           
-                <ImageCard nome="Guerra" tamanho="10mb" dataUpload="01/01/2024" src="https://w.wallha.com/ws/5/fLJMyprK.jpg"/>           
-                <ImageCard nome="Guerra" tamanho="10mb" dataUpload="01/01/2024" src="https://w.wallha.com/ws/5/fLJMyprK.jpg"/>           
-                <ImageCard nome="Guerra" tamanho="10mb" dataUpload="01/01/2024" src="https://w.wallha.com/ws/5/fLJMyprK.jpg"/>           
-                <ImageCard nome="Guerra" tamanho="10mb" dataUpload="01/01/2024" src="https://w.wallha.com/ws/5/fLJMyprK.jpg"/>           
+                {renderimageCards()}
             </section>
         </Template>
     );

@@ -19,6 +19,7 @@ import java.util.List;
 @RequestMapping("/v1/stories")
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class StoryController {
 
     private final StoryService storyService;
