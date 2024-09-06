@@ -3,6 +3,6 @@ export class Image {
   name?: string;
   font?: string;
   extension?: string;
-  size?: string;
+  size?: number;
   uploadDate?: string;
 }

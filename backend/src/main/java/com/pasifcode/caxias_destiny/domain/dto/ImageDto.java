@@ -1,5 +1,6 @@
 package com.pasifcode.caxias_destiny.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,7 +12,8 @@ public class ImageDto {
     private String url;
     private String name;
     private String font;
-    private String imageExtension;
+    private String extension;
     private Long size;
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime uploadDate;
 }

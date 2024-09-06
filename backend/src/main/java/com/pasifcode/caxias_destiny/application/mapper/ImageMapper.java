@@ -24,7 +24,7 @@ public class ImageMapper {
     public ImageDto imageToDto(Image entity, String url) throws IOException {
         return ImageDto.builder()
                 .url(url)
-                .imageExtension(entity.getExtension().name())
+                .extension(entity.getExtension().name())
                 .name(entity.getName())
                 .font(entity.getFont())
                 .size(entity.getSize())
