@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from "react";
-import { Template, ImageCard } from "@/components";
+import { Template, ImageCard, Button } from "@/components";
 import { Image } from "@/resources/image/image.resource";
 import { useImageService } from "@/resources/image/image.service";
+import Link from "next/link";
 
 
 export default function GaleriaPage() {
@@ -29,9 +30,9 @@ export default function GaleriaPage() {
                 src={image.url}
                 tamanho={image.size}
                 extension={image.extension}
-                dataUpload={image.uploadDate} 
+                dataUpload={image.uploadDate}
                 fonte={image.font}
-                />
+            />
         );
     }
 
@@ -48,14 +49,16 @@ export default function GaleriaPage() {
                         onChange={event => setQuery(event.target.value)}
                         className="border border-gray-800 px-4 py-2 rounded-md text-gray-900" />
                     <select onChange={event => setExtension(event.target.value)}
-                    className="border px-4 py-2 rounded-md text-gray-900">
+                        className="border px-4 py-2 rounded-md text-gray-900">
                         <option value="">Todos Formatos</option>
                         <option value="PNG">PNG</option>
                         <option value="JPEG">JPEG</option>
                         <option value="GIF">GIF</option>
                     </select>
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-300" onClick={searchImages}>Buscar</button>
-                    <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-300">Adcionar Imagem</button>
+                    <Button style="bg-blue-600 hover:bg-blue-400 " label="Buscar" onClick={searchImages}/>
+                    <Link href="/formulario">
+                    <Button style="bg-green-600 hover:bg-green-400 border-5 border-color-hover:text-gray" label="Adicionar Imagem" />
+                    </Link>
                 </div>
             </section>
             <section className="grid grid-cols-3 gap-8">
