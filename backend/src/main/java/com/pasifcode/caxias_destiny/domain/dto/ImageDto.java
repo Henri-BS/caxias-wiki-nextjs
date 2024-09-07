@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class ImageDto {
     private String url;
     private String name;
-    private String font;
+    private String notes;
     private String extension;
     private Long size;
     @JsonFormat(pattern = "dd/MM/yyyy")

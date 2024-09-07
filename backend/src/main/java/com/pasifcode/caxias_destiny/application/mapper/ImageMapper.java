@@ -11,10 +11,10 @@ import java.io.IOException;
 
 @Component
 public class ImageMapper {
-    public Image mapToImage(MultipartFile file, String name, String font) throws IOException {
+    public Image mapToImage(MultipartFile file, String name, String notes) throws IOException {
         return Image.builder()
                 .name(name)
-                .font(font)
+                .notes(notes)
                 .size(file.getSize())
                 .extension(ImageExtension.valueOf(MediaType.valueOf(file.getContentType())))
                 .file(file.getBytes())
@@ -26,7 +26,7 @@ public class ImageMapper {
                 .url(url)
                 .extension(entity.getExtension().name())
                 .name(entity.getName())
-                .font(entity.getFont())
+                .notes(entity.getNotes())
                 .size(entity.getSize())
                 .uploadDate(entity.getUploadDate())
                 .build();

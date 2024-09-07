@@ -14,8 +14,4 @@ private ImageSpec(){}
     public static Specification<Image> nameLike(String name) {
         return (root, q, cb) -> cb.like(cb.upper(root.get("name")), "%" + name.toUpperCase() + "%");
     }
-
-    public static Specification<Image> fontLike(String font) {
-        return (root, q, cb) -> cb.like(cb.upper(root.get("font")), "%" + font.toUpperCase() + "%");
-    }
 }

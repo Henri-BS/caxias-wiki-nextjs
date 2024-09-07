@@ -16,7 +16,7 @@ import static org.springframework.data.jpa.domain.Specification.where;
 
 public interface ImageRepository extends JpaRepository<Image, String>, JpaSpecificationExecutor<Image> {
 
-    default List<Image> findByExtensionAndNameOrFontLike(ImageExtension extension, String query){
+    default List<Image> findByExtensionAndNameLike(ImageExtension extension, String query){
         Specification<Image> spec = where(conjuction());
 
         if(extension != null){
@@ -24,7 +24,7 @@ public interface ImageRepository extends JpaRepository<Image, String>, JpaSpecif
         }
 
         if (StringUtils.hasText(query)) {
-            spec = spec.and(Specification.anyOf(nameLike(query), fontLike(query)));
+            spec = spec.and(Specification.anyOf(nameLike(query)));
         }
         return findAll(spec);
     }

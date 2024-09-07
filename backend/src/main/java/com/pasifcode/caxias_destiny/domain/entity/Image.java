@@ -23,7 +23,8 @@ public class Image {
     private String id;
     private String name;
     private Long size;
-    private String font;
+    @Column(columnDefinition = "TEXT")
+    private String notes;
     @CreatedDate
     private LocalDateTime uploadDate;
     @Enumerated(EnumType.STRING)

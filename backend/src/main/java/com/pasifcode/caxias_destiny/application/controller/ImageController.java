@@ -32,11 +32,11 @@ public class ImageController {
     public ResponseEntity saveImage(
             @RequestParam("file") MultipartFile file,
             @RequestParam("name") String name,
-            @RequestParam("font") String font
+            @RequestParam("notes") String notes
     ) throws IOException {
         log.info("Imagem recebida: name: {}, size: {}", file.getOriginalFilename(), file.getSize());
 
-        Image image = imageMapper.mapToImage(file, name, font);
+        Image image = imageMapper.mapToImage(file, name, notes);
         Image savedImage = imageService.saveImage(image);
         URI imageUri = buildImageURL(savedImage);
 

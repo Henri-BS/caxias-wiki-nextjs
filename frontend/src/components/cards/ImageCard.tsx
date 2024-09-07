@@ -1,16 +1,18 @@
 'use client'
 
+import { Button } from "@/components";
+
 interface ImageCardProps {
     nome?: string;
     tamanho?: number;
     dataUpload?: string;
     src?:  string;
     extension?: string;
-    fonte?: string;
+    notas?: string;
 }
 
 export const ImageCard: React.FC<ImageCardProps> = ({
-    nome, tamanho, dataUpload, src, extension, fonte
+    nome, tamanho, dataUpload, src, extension, notas
 }: ImageCardProps) => {
 
 function download(){
@@ -25,7 +27,7 @@ function download(){
                 <p className="text-gray-100">{extension}</p>
                 <p className="text-gray-100">{formatBytes(tamanho)}</p>
                 <p className="text-gray-100">{dataUpload}</p>
-                <p className="text-gray-100">{fonte}</p>
+                <p className="text-gray-100">{notas}</p> 
             </div>
         </div>
     );

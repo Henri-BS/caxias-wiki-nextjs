@@ -30,7 +30,7 @@ export default function GaleriaPage() {
                 tamanho={image.size}
                 extension={image.extension}
                 dataUpload={image.uploadDate}
-                fonte={image.font}
+                notas={image.notes}
             />
         );
     }

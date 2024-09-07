@@ -1,7 +1,7 @@
 export class Image {
   url?: string;
   name?: string;
-  font?: string;
+  notes?: string;
   extension?: string;
   size?: number;
   uploadDate?: string;
