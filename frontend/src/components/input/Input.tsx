@@ -5,30 +5,29 @@ interface InputTextProps {
     onChange?: (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void;
     placeholder?: string;
     id?: string;
+    value?: string;
 }
 
 
 
 export const InputText: React.FC<InputTextProps> = ({
-    id, onChange, style, placeholder
+    style, ...inputProps
 }: InputTextProps) => {
     return (
         <input
-            id={id}
+        {...inputProps}
             type="text"
-            onChange={onChange}
-            className={`${style} border border-gray-800 px-4 py-2 rounded-md text-gray-900`} placeholder={placeholder} />
+            className={`${style} border border-gray-800 px-4 py-2 rounded-md text-gray-900`} />
     );
 }
 
 export const TextArea: React.FC<InputTextProps> = ({
-    id, onChange, style, placeholder
+    style, ...textProps
 }: InputTextProps) => {
     return (
         <textarea
-            id={id}
-            onChange={onChange}
-            className={`${style} border border-gray-800 px-4 py-2 rounded-md text-gray-900`} placeholder={placeholder}>
+        {...textProps}
+            className={`${style} border border-gray-800 px-4 py-2 rounded-md text-gray-900`}>
             </textarea> 
     );
 }

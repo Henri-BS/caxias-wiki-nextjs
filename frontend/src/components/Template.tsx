@@ -1,3 +1,5 @@
+import { ToastContainer } from "react-toastify";
+
 interface TemplateProps {
     children: React.ReactNode
     loading?: boolean;
@@ -7,16 +9,22 @@ export const Template: React.FC<TemplateProps> = ({ children, loading = false }:
     return (
         <>
             <Header />
-            
             <div className={`${loading ? 'animate-pulse' : ''} container mx-auto mt-8 px-4`}>
-            <RenderIf condition={loading}>
-            <div className="text-center">
-                    <Loading />
-                </div>    
-            </RenderIf>
+                <RenderIf condition={loading}>
+                    <div className="text-center">
+                        <Loading />
+                    </div>
+                </RenderIf>
                 {children}
             </div>
             <Footer />
+            <ToastContainer position="top-right"
+                autoClose={8000}
+                hideProgressBar={false}
+                draggable={false}
+                closeOnClick={true}
+                pauseOnHover={true}
+            />
         </>
     );
 }
@@ -26,8 +34,8 @@ interface RenderIfProps {
     children: React.ReactNode;
 }
 
-export const RenderIf:React.FC<RenderIfProps> = ({condition = true, children}) => {
-    if(condition){
+export const RenderIf: React.FC<RenderIfProps> = ({ condition = true, children }) => {
+    if (condition) {
         return children;
     }
     return false;

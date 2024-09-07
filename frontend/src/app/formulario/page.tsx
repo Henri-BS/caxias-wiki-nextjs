@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, InputText, TextArea, RenderIf, Template } from "@/components"
+import { Button, InputText, TextArea, RenderIf, Template, useNotification } from "@/components"
 import Link from "next/link";
 import { useFormik } from "formik";
 import { useState } from "react";
@@ -17,6 +17,8 @@ const formScheme: FormProps = { name: "", notes: "", file: "" }
 
 export default function FormularioPage() {
 
+    const [loading, setLoading] = useState<boolean>(false);
+    const notification = useNotification();
     const [imagePreview, setImagePreview] = useState<string>();
     const service = useImageService();
 
@@ -26,12 +28,20 @@ export default function FormularioPage() {
     })
 
     async function handleSubmit(dados: FormProps) {
+        setLoading(true);
+
         const formData = new FormData();
         formData.append("file", dados.file);
         formData.append("name", dados.name);
         formData.append("notes", dados.notes);
         await service.salvar(formData);
         formik.resetForm();
+        setImagePreview('');
+        setLoading(false);
+
+        
+            notification.notify("Salvo com sucesso !", "success");
+        
     }
 
     function onFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
@@ -44,17 +54,25 @@ export default function FormularioPage() {
     }
 
     return (
-        <Template>
+        <Template loading={loading}>
             <section className="flex flex-col items-center justify-center my-5">
                 <h5 className="mt-3 mb-10 text-3xl font-extrabold tracking-tight text-gray-900">Nova Imagem</h5>
                 <form onSubmit={formik.handleSubmit}>
                     <div className="grid grid-cols-1">
                         <label className="block text-sm font-medium leading-6 text-gray-700">Name: *</label>
-                        <InputText id="name" onChange={formik.handleChange} placeholder="nome da imagem" />
+                        <InputText 
+                        id="name" 
+                        onChange={formik.handleChange} 
+                        value={formik.values.name}
+                        placeholder="nome da imagem" />
                     </div>
                     <div className="mt-5 grid grid-cols-1">
                         <label className='block text-sm font-medium leading-6 text-gray-700'>Notas: *</label>
-                        <TextArea id="notes" onChange={formik.handleChange} placeholder="Notas sobre a imagem (fonte, autor, local...)" />
+                        <TextArea 
+                        id="notes" 
+                        onChange={formik.handleChange} 
+                        value={formik.values.notes}
+                        placeholder="Notas sobre a imagem (fonte, autor, local...)" />
                     </div>
                     <div className="mt-5 grid grid-cols-1">
                         <label className="block text-sm font-medium leading-6 text-gray-700">Imagem: *</label>
