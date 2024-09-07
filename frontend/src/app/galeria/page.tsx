@@ -6,9 +6,8 @@ import { Image } from "@/resources/image/image.resource";
 import { useImageService } from "@/resources/image/image.service";
 import Link from "next/link";
 
-
 export default function GaleriaPage() {
-
+    
     const useService = useImageService();
     const [images, setImages] = useState<Image[]>([]);
     const [query, setQuery] = useState<string>('');
@@ -52,9 +51,9 @@ export default function GaleriaPage() {
                         <option value="JPEG">JPEG</option>
                         <option value="GIF">GIF</option>
                     </select>
-                    <Button style="bg-blue-600 hover:bg-blue-400 " label="Buscar" onClick={searchImages}/>
+                    <Button type="submit" style="bg-blue-600 hover:bg-blue-400" label="Buscar" onClick={searchImages}/>
                     <Link href="/formulario">
-                    <Button style="bg-green-600 hover:bg-green-400 border-5 border-color-hover:text-gray" label="Adicionar Imagem" />
+                    <Button type="button" style="bg-green-600 hover:bg-green-400 border-5 border-color-hover:text-gray" label="Adicionar Imagem" />
                     </Link>
                 </div>
             </section>
