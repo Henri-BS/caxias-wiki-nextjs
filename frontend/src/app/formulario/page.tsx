@@ -19,7 +19,7 @@ export default function FormularioPage() {
         initialValues: formSchema,
         onSubmit: handleSubmit,
         validationSchema: formValidationSchema
-        
+
     });
 
     async function handleSubmit(dados: FormProps) {
@@ -59,7 +59,7 @@ export default function FormularioPage() {
                             onChange={formik.handleChange}
                             value={formik.values.name}
                             placeholder="nome da imagem" />
-                            <FieldError error={formik.errors.name}/>
+                        <FieldError error={formik.errors.name} />
                     </div>
                     <div className="mt-5 grid grid-cols-1">
                         <label className='block text-sm font-medium leading-6 text-gray-700'>Notas: </label>
@@ -71,7 +71,7 @@ export default function FormularioPage() {
                     </div>
                     <div className="mt-5 grid grid-cols-1">
                         <label className="block text-sm font-medium leading-6 text-gray-700">Imagem: *</label>
-                        <FieldError error={formik.errors.file}/>
+                        <FieldError error={formik.errors.file} />
                         <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                             <div className="text-center">
                                 <RenderIf condition={!imagePreview}>
