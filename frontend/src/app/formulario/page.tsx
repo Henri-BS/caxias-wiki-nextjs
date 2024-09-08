@@ -1,19 +1,12 @@
 'use client'
 
-import { Button, InputText, TextArea, RenderIf, Template, useNotification } from "@/components"
 import Link from "next/link";
+import { Button, InputText, TextArea, RenderIf, Template, useNotification, FieldError } from "@/components"
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useImageService } from "@/resources/image/image.service";
-import { } from "@/components/input/Input";
+import { FormProps, formSchema, formValidationSchema } from "./formSchema";
 
-interface FormProps {
-    name: string;
-    notes: string;
-    file: any;
-}
-
-const formScheme: FormProps = { name: "", notes: "", file: "" }
 
 export default function FormularioPage() {
 
@@ -23,9 +16,11 @@ export default function FormularioPage() {
     const service = useImageService();
 
     const formik = useFormik<FormProps>({
-        initialValues: formScheme,
-        onSubmit: handleSubmit
-    })
+        initialValues: formSchema,
+        onSubmit: handleSubmit,
+        validationSchema: formValidationSchema
+        
+    });
 
     async function handleSubmit(dados: FormProps) {
         setLoading(true);
@@ -34,14 +29,13 @@ export default function FormularioPage() {
         formData.append("file", dados.file);
         formData.append("name", dados.name);
         formData.append("notes", dados.notes);
+
         await service.salvar(formData);
+
         formik.resetForm();
         setImagePreview('');
         setLoading(false);
-
-        
-            notification.notify("Salvo com sucesso !", "success");
-        
+        notification.notify("Salvo com sucesso !", "success");
     }
 
     function onFileUpload(event: React.ChangeEvent<HTMLInputElement>) {
@@ -60,22 +54,24 @@ export default function FormularioPage() {
                 <form onSubmit={formik.handleSubmit}>
                     <div className="grid grid-cols-1">
                         <label className="block text-sm font-medium leading-6 text-gray-700">Name: *</label>
-                        <InputText 
-                        id="name" 
-                        onChange={formik.handleChange} 
-                        value={formik.values.name}
-                        placeholder="nome da imagem" />
+                        <InputText
+                            id="name"
+                            onChange={formik.handleChange}
+                            value={formik.values.name}
+                            placeholder="nome da imagem" />
+                            <FieldError error={formik.errors.name}/>
                     </div>
                     <div className="mt-5 grid grid-cols-1">
-                        <label className='block text-sm font-medium leading-6 text-gray-700'>Notas: *</label>
-                        <TextArea 
-                        id="notes" 
-                        onChange={formik.handleChange} 
-                        value={formik.values.notes}
-                        placeholder="Notas sobre a imagem (fonte, autor, local...)" />
+                        <label className='block text-sm font-medium leading-6 text-gray-700'>Notas: </label>
+                        <TextArea
+                            id="notes"
+                            onChange={formik.handleChange}
+                            value={formik.values.notes}
+                            placeholder="Notas sobre a imagem (fonte, autor, local...)" />
                     </div>
                     <div className="mt-5 grid grid-cols-1">
                         <label className="block text-sm font-medium leading-6 text-gray-700">Imagem: *</label>
+                        <FieldError error={formik.errors.file}/>
                         <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                             <div className="text-center">
                                 <RenderIf condition={!imagePreview}>
