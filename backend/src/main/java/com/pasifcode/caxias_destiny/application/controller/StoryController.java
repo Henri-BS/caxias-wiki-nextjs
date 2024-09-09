@@ -19,7 +19,6 @@ import java.util.List;
 @RequestMapping("/v1/stories")
 @Slf4j
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class StoryController {
 
     private final StoryService storyService;
@@ -34,12 +33,9 @@ public class StoryController {
     ){
         log.info("Nome definido para a publicação: {}", name);
         Story story = storyMapper.mapToStory(name, description, location, tags);
+        storyService.saveStory(story);
 
-        Story savedStory = storyService.saveStory(story);
-
-        URI storyUri = buildStoryURL(savedStory);
-
-        return ResponseEntity.created(storyUri).build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/{id}")
@@ -58,12 +54,4 @@ public class StoryController {
     return ResponseEntity.ok(stories);
     }
 
-
-    private URI buildStoryURL(Story story){
-        String storyPath = "/" + story.getId();
-        return ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path(storyPath)
-                .build().toUri();
-    }
 }

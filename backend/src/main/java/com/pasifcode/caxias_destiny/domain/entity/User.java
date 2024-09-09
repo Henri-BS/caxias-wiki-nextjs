@@ -22,12 +22,10 @@ public class User {
     private String id;
     private String name;
     @Column(columnDefinition = "TEXT")
-    private String description;
+    private String bio;
     private String email;
     private String password;
 
     @CreatedDate
     private LocalDateTime createdAt;
-
-
 }

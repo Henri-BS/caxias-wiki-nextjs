@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-private final JwtService jwtService;
+    private final JwtService jwtService;
 
     @Override
     @Transactional
@@ -37,18 +37,18 @@ private final JwtService jwtService;
     @Override
     public AccessToken authenticate(String email, String password) {
         var user = findUserByEmail(email);
-        if(user == null){
+        if (user == null) {
             return null;
         }
 
         boolean matches = passwordEncoder.matches(password, user.getPassword());
-        if (matches){
+        if (matches) {
             return jwtService.generateToken(user);
         }
         return null;
     }
 
-    private void encodePassword(User user){
+    private void encodePassword(User user) {
         String rawPassword = user.getPassword();
         String encodedPassword = passwordEncoder.encode(rawPassword);
         user.setPassword(encodedPassword);
