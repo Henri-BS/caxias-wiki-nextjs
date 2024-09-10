@@ -6,7 +6,11 @@ export interface FormProps {
   file: string | Blob;
 }
 
-export const formSchema: FormProps = { name: "", notes: "", file: "" };
+export const formSchema: FormProps = {
+  name: "",
+  notes: "",
+  file: "",
+};
 
 export const formValidationSchema = Yup.object().shape({
   name: Yup.string()
