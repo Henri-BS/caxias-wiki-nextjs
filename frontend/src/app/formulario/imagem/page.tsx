@@ -5,7 +5,7 @@ import { Button, InputText, TextArea, RenderIf, Template, useNotification, Field
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useImageService } from "@/resources/image/image.service";
-import { FormProps, formSchema, formValidationSchema } from "./formSchema";
+import { FormProps, formSchema, formValidationSchema } from "../formSchema";
 
 
 export default function FormularioPage() {

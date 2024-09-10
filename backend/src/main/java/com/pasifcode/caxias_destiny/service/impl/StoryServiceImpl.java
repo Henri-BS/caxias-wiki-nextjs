@@ -1,6 +1,5 @@
 package com.pasifcode.caxias_destiny.service.impl;
 
-import com.pasifcode.caxias_destiny.domain.dto.StoryDto;
 import com.pasifcode.caxias_destiny.domain.entity.Story;
 import com.pasifcode.caxias_destiny.infra.repository.StoryRepository;
 import com.pasifcode.caxias_destiny.service.interf.StoryService;

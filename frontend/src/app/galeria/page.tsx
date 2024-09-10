@@ -57,7 +57,7 @@ export default function GaleriaPage() {
                         <option value="GIF">GIF</option>
                     </select>
                     <Button type="submit" style="bg-blue-600 hover:bg-blue-400" label="Buscar" onClick={searchImages}/>
-                    <Link href="/formulario">
+                    <Link href="/formulario/imagem">
                     <Button type="button" style="bg-green-600 hover:bg-green-400 border-5 border-color-hover:text-gray" label="Adicionar Imagem" />
                     </Link>
                 </div>

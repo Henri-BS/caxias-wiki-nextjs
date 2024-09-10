@@ -13,6 +13,5 @@ public class UserMapper {
                 .password(dto.getPassword())
                 .bio(dto.getBio())
                 .build();
-
     }
 }
