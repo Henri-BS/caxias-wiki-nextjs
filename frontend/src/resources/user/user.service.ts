@@ -46,7 +46,6 @@ class AuthService {
   initSession(token: AccessToken) {
     if (token.accessToken) {
       const decodedToken: any = jwt(token.accessToken);
-      console.log("DECODED TOKEN: ", decodedToken);
       const userSessiontoken: UserSessionToken = {
         accessToken: token.accessToken,
         email: decodedToken.sub,
