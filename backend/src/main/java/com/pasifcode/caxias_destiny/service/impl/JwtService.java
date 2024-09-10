@@ -3,7 +3,8 @@ package com.pasifcode.caxias_destiny.service.impl;
 import com.pasifcode.caxias_destiny.config.SecretKeyGeneratorConfig;
 import com.pasifcode.caxias_destiny.domain.AccessToken;
 import com.pasifcode.caxias_destiny.domain.entity.User;
-import io.jsonwebtoken.Jwts;
+import com.pasifcode.caxias_destiny.domain.exception.InvalidTokenException;
+import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,34 +18,48 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JwtService {
 
-        private final SecretKeyGeneratorConfig keyGenerator;
+    private final SecretKeyGeneratorConfig keyGenerator;
 
-        public AccessToken generateToken(User user){
+    public AccessToken generateToken(User user) {
 
-            var key = keyGenerator.getKey();
-            var expirationDate = generateExpirationDate();
-            var claims = generateTokenClaims(user);
+        var key = keyGenerator.getKey();
+        var expirationDate = generateExpirationDate();
+        var claims = generateTokenClaims(user);
 
-            String token = Jwts
-                    .builder()
-                    .signWith(key)
-                    .subject(user.getEmail())
-                    .expiration(expirationDate)
-                    .claims(claims)
-                    .compact();
+        String token = Jwts
+                .builder()
+                .signWith(key)
+                .subject(user.getEmail())
+                .expiration(expirationDate)
+                .claims(claims)
+                .compact();
 
-            return new AccessToken(token);
+        return new AccessToken(token);
+    }
+
+    private Date generateExpirationDate() {
+        var expirationMinutes = 60;
+        LocalDateTime now = LocalDateTime.now().plusMinutes(expirationMinutes);
+        return Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    private Map<String, Object> generateTokenClaims(User user) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("name", user.getName());
+        return claims;
+    }
+
+    public String getEmailFromToken(String tokenJwt) throws InvalidTokenException {
+        try {
+            JwtParser build = Jwts.parser()
+                    .verifyWith(keyGenerator.getKey())
+                    .build();
+
+            Jws<Claims> jwsCalims = build.parseSignedClaims(tokenJwt);
+            Claims claims = jwsCalims.getPayload();
+            return claims.getSubject();
+        } catch (JwtException e) {
+            throw new InvalidTokenException(e.getMessage());
         }
-
-        private Date generateExpirationDate(){
-            var expirationMinutes = 60;
-            LocalDateTime now = LocalDateTime.now().plusMinutes(expirationMinutes);
-            return Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
-        }
-
-        private Map<String, Object> generateTokenClaims(User user){
-            Map<String, Object> claims = new HashMap<>();
-            claims.put("name", user.getName());
-            return claims;
-        }
+    }
 }

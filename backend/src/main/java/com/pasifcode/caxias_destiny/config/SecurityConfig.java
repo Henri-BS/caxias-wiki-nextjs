@@ -28,8 +28,10 @@ public class SecurityConfig implements WebMvcConfigurer {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors((cors -> cors.configure(http)))
-                .authorizeHttpRequests((requests) ->
-                        requests.anyRequest().permitAll())
+                .authorizeHttpRequests((requests) -> {
+                    requests.requestMatchers("v1/users/**").permitAll();
+                    requests.anyRequest().authenticated();
+                })
                 .build();
     }
 
