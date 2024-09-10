@@ -30,7 +30,7 @@ export default function FormularioPage() {
         formData.append("name", dados.name);
         formData.append("notes", dados.notes);
 
-        await service.salvar(formData);
+        await service.saveImage(formData);
 
         formik.resetForm();
         setImagePreview('');

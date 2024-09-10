@@ -27,22 +27,23 @@ export default function Login() {
             const credentials: Credentials = { email: values.email, password: values.password }
             try {
                 const accessToken: AccessToken = await auth.authenticate(credentials);
-
+                auth.initSession(accessToken);
+                console.log("Sessão está válida? ", auth.isSessionValid())
                 router.push("/galeria")
             } catch (error: any) {
                 const message = error?.message;
-                notification.notify(message, "error");
+                notification.notify(message, "error")
             }
-        }else{
+        } else {
             const user: User = { email: values.email, name: values.name, password: values.password }
-            
+
             try {
                 await auth.save(user);
                 notification.notify("Usuário salvo com sucesso!", "success");
                 resetForm();
                 setNewUserState(false);
-            } catch(error: any){
-                const message =  error?.message;
+            } catch (error: any) {
+                const message = error?.message;
                 notification.notify(message, "error")
             }
         }
@@ -52,7 +53,7 @@ export default function Login() {
     return (
         <Template loading={loading}>
             <div className="flex flex-1 flex-col min-h-full justify-center px-6 py-12 lg:px-8">
-               
+
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <h1 className="mt-10 text-center text-1x1 font-bold leading-9 tracking-tight text-gray-900">
                         {newUserState ? "Cadastrar usuário" : "Faça Login na sua conta"}
@@ -152,6 +153,3 @@ export default function Login() {
     );
 }
 
-function resetForm() {
-    throw new Error("Function not implemented.");
-}

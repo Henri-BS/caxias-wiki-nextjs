@@ -30,6 +30,8 @@ export const formValidationSchema = Yup.object().shape({
     .required("Selecione a imagem para enviar!")
     .min(8, "A senha deve ter no mínimo 8 caracteres!"),
 
-  passwordMatch: Yup.string()
-    .oneOf([Yup.ref("password")], "As senhas devem ser iguais!")
+  passwordMatch: Yup.string().oneOf(
+    [Yup.ref("password")],
+    "As senhas não coincidem!"
+  ),
 });

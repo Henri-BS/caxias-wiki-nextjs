@@ -18,5 +18,5 @@ export class UserSessionToken {
   name?: string;
   email?: string;
   accessToken?: string;
-  expration?: number;
+  expiration?: number;
 }
