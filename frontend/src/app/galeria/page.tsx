@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { Template, ImageCard, Button, InputText, useNotification } from "@/components";
-import { Image } from "@/resources/image/image.resource";
-import { useImageService } from "@/resources/image/image.service";
+import { useImageService, Image } from "@/resources";
 import Link from "next/link";
 
 export default function GaleriaPage() {
