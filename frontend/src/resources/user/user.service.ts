@@ -61,7 +61,7 @@ class AuthService {
       JSON.stringify(userSessionToken)
     );
   }
-  getUserSesion(): UserSessionToken | null {
+  getUserSession(): UserSessionToken | null {
     const authString = localStorage.getItem(AuthService.AUTH_PARAM);
     if (!authString) {
       return null;
@@ -71,7 +71,7 @@ class AuthService {
   }
 
   isSessionValid() : boolean {
-    const userSession: UserSessionToken |  null = this.getUserSesion();
+    const userSession: UserSessionToken |  null = this.getUserSession();
     if(!userSession){
       return false;
     }
@@ -83,6 +83,10 @@ class AuthService {
     }
 
     return false;
+  }
+
+  invalidateSession(): void {
+    localStorage.removeItem(AuthService.AUTH_PARAM);
   }
 }
 

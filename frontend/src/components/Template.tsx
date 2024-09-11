@@ -1,3 +1,6 @@
+import { useAuth } from "@/resources";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ToastContainer } from "react-toastify";
 
 interface TemplateProps {
@@ -54,10 +57,37 @@ const Loading: React.FC = () => {
 }
 
 const Header: React.FC = () => {
+
+    const auth = useAuth();
+    const user = auth.getUserSession();
+const router = useRouter();
+
+    function logout() { 
+        auth.invalidateSession()
+        router.push("/formulario/login")
+    }
+
     return (
         <header className="border-b border-gray-500 backdrop-blur-2xl bg-gray-700 text-white py-6">
             <div className="container mx-auto flex justify-between items-center px-4">
-                <h1 className="text-2x1 font-bold">Destino Caxias</h1>
+                <Link href={"/galeria"}>
+                    <h1 className="text-2x1 font-bold">Destino Caxias</h1>
+                </Link>
+                <RenderIf condition={!!user}>
+                    <div className="flex items-center">
+                        <div className="relative">
+                            <span className="w-64 py-3 px-6 text-md">
+                                {user?.name}
+
+                            </span>
+                            <span className="w-64 py-3 px-6 text-sm">
+                                <a href={`#`} onClick={logout}>
+                                    Sair
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </RenderIf>
             </div>
         </header>
     );
