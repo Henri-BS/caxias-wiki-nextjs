@@ -56,27 +56,33 @@ class AuthService {
     }
   }
   setUserSession(userSessionToken: UserSessionToken) {
-    localStorage.setItem(
-      AuthService.AUTH_PARAM,
-      JSON.stringify(userSessionToken)
-    );
+    try {
+      localStorage.setItem(
+        AuthService.AUTH_PARAM,
+        JSON.stringify(userSessionToken)
+      );
+    } catch (error) {}
   }
   getUserSession(): UserSessionToken | null {
-    const authString = localStorage.getItem(AuthService.AUTH_PARAM);
-    if (!authString) {
+    try {
+      const authString = localStorage.getItem(AuthService.AUTH_PARAM);
+      if (!authString) {
+        return null;
+      }
+      const token: UserSessionToken = JSON.parse(authString);
+      return token;
+    } catch (error) {
       return null;
     }
-    const token: UserSessionToken = JSON.parse(authString);
-    return token;
   }
 
-  isSessionValid() : boolean {
-    const userSession: UserSessionToken |  null = this.getUserSession();
-    if(!userSession){
+  isSessionValid(): boolean {
+    const userSession: UserSessionToken | null = this.getUserSession();
+    if (!userSession) {
       return false;
     }
     const expiration: number | undefined = userSession.expiration;
-    if(expiration){
+    if (expiration) {
       const expirationDateInMillis = expiration * 1000;
       console.log("Data da expiração: ", new Date(expiration));
       return new Date() < new Date(expirationDateInMillis);
@@ -86,7 +92,9 @@ class AuthService {
   }
 
   invalidateSession(): void {
-    localStorage.removeItem(AuthService.AUTH_PARAM);
+    try {
+      localStorage.removeItem(AuthService.AUTH_PARAM);
+    } catch (error) {}
   }
 }
 

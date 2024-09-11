@@ -1,3 +1,5 @@
+'use client'
+
 import { useAuth } from "@/resources";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -63,8 +65,8 @@ const Header: React.FC = () => {
 const router = useRouter();
 
     function logout() { 
-        auth.invalidateSession()
-        router.push("/formulario/login")
+        auth.invalidateSession();
+        router.push("/formulario/login");
     }
 
     return (
