@@ -6,6 +6,7 @@ import com.pasifcode.caxias_destiny.domain.entity.User;
 import com.pasifcode.caxias_destiny.domain.exception.InvalidTokenException;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -55,11 +56,12 @@ public class JwtService {
                     .verifyWith(keyGenerator.getKey())
                     .build();
 
-            Jws<Claims> jwsCalims = build.parseSignedClaims(tokenJwt);
-            Claims claims = jwsCalims.getPayload();
+            Jws<Claims> jwsClaims = build.parseSignedClaims(tokenJwt);
+            Claims claims = jwsClaims.getPayload();
             return claims.getSubject();
-        } catch (JwtException e) {
+
+        }catch (JwtException e){
             throw new InvalidTokenException(e.getMessage());
         }
     }
-}
+    }
