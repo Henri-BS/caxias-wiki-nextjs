@@ -1,4 +1,4 @@
-import Login from "@/app/formulario/login/page";
+import Login from "@/app/login/page";
 import {useAuth} from "@/resources";
 
 interface AuthenticatedPageProps{

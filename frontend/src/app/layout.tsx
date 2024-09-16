@@ -6,7 +6,7 @@ import "./globals.css";
 const nunito = Nunito({ subsets: ["latin"] , weight: "300"});
 
 export const metadata: Metadata = {
-  title: "Destino Caxias",
+  title: "Caxias Wiki",
   description: "Projeto destinado a exibir e descrever detalhes sobre a cultura, fauna, flora e locais em Caxias/MA",
 };
 

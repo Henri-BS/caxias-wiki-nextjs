@@ -37,7 +37,7 @@ public class ImageController {
 
         Image image = imageMapper.mapToImage(file, name, notes);
         Image savedImage = imageService.saveImage(image);
-        URI imageUri = buildImageURL(savedImage);
+        URI imageUri = buildURL(savedImage);
 
         return ResponseEntity.created(imageUri).build();
     }
@@ -63,7 +63,7 @@ public class ImageController {
         var result = imageService.searchImage(ImageExtension.ofName(extension), query);
 
         var images = result.stream().map(image -> {
-            var url = buildImageURL(image);
+            var url = buildURL(image);
             try {
                 return imageMapper.imageToDto(image, url.toString());
             } catch (IOException e) {
@@ -73,7 +73,7 @@ public class ImageController {
         return ResponseEntity.ok(images);
     }
 
-    private URI buildImageURL(Image image) {
+    private URI buildURL(Image image) {
         String imagePath = "/" + image.getId();
         return ServletUriComponentsBuilder
                 .fromCurrentRequestUri()

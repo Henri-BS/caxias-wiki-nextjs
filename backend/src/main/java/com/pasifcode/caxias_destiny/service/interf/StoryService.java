@@ -1,14 +1,15 @@
 package com.pasifcode.caxias_destiny.service.interf;
 
-import com.pasifcode.caxias_destiny.domain.dto.StoryDto;
 import com.pasifcode.caxias_destiny.domain.entity.Story;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface StoryService {
     Story saveStory(Story story);
 
     List<Story> searchStory(String query);
 
-    Story findStoryById(String id);
+    Optional<Story> findStoryById(String id);
+
 }

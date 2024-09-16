@@ -5,7 +5,7 @@ import { Button, InputText, TextArea, RenderIf, Template, useNotification, Field
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useImageService } from "@/resources/image/image.service";
-import { FormProps, formSchema, formValidationSchema } from "./formSchema";
+import { FormProps, formSchema, formValidationSchema } from "./imageFormSchema";
 
 
 export default function FormularioPage() {
@@ -54,7 +54,7 @@ export default function FormularioPage() {
                     <h5 className="mt-3 mb-10 text-3xl font-extrabold tracking-tight text-gray-900">Nova Imagem</h5>
                     <form onSubmit={formik.handleSubmit}>
                         <div className="grid grid-cols-1">
-                            <label className="block text-sm font-medium leading-6 text-gray-700">Name: *</label>
+                            <label className="block text-sm font-medium leading-6 text-gray-700">Nome: *</label>
                             <InputText
                                 id="name"
                                 onChange={formik.handleChange}

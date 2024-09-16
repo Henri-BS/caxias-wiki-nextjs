@@ -10,9 +10,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.net.URI;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -28,21 +28,14 @@ public class StoryController {
     public ResponseEntity saveStory(
             @RequestParam("name") String name,
             @RequestParam("description") String description,
-            @RequestParam("location") List<String> location,
+            @RequestParam("imageUrl") String imageUrl,
             @RequestParam("tags") List<String> tags
-    ){
+    ) throws IOException {
         log.info("Nome definido para a publicação: {}", name);
-        Story story = storyMapper.mapToStory(name, description, location, tags);
+        Story story = storyMapper.mapToStory(name, description, imageUrl, tags);
         storyService.saveStory(story);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<StoryDto> findStoryById(@PathVariable String id) {
-        var story = storyService.findStoryById(id);
-        var dto = storyMapper.storyToDto(story);
-        return ResponseEntity.ok(dto);
     }
 
     @GetMapping
@@ -53,5 +46,6 @@ public class StoryController {
 
     return ResponseEntity.ok(stories);
     }
+
 
 }

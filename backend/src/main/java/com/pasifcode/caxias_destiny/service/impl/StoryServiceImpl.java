@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +28,11 @@ public class StoryServiceImpl implements StoryService {
     }
 
     @Override
-    public Story findStoryById(String id) {
-        return storyRepository.findById(id).orElseThrow();
+    public Optional<Story> findStoryById(String id) {
+        return storyRepository.findById(id);
     }
+
+
+
+
 }

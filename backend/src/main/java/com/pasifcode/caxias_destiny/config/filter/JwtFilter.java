@@ -67,5 +67,9 @@ public class JwtFilter extends OncePerRequestFilter  {
         return null;
     }
 
+    @Override
+    protected  boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        return request.getRequestURI().contains("/v1/users");
+    }
 
 }

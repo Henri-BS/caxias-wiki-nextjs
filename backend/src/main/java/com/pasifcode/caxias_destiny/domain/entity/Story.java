@@ -2,10 +2,10 @@ package com.pasifcode.caxias_destiny.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -23,7 +23,9 @@ public class Story {
     private String name;
     @Column(columnDefinition = "TEXT")
     private String description;
-    private String locations;
     private String tags;
+    private String imageUrl;
+    @CreatedDate
+    private LocalDateTime createdDate;
 
 }

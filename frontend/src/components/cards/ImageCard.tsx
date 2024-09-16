@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from "@/components";
 
 interface ImageCardProps {
     nome?: string;

@@ -1,9 +1,8 @@
 'use client'
 
-import Image from "next/image";
-import LoginPage from "./formulario/login/page";
-import GaleriaPage from "./galeria/page";
+import LoginPage from "./login/page";
 import { useAuth } from "@/resources";
+import WikiPage from "./wiki/page";
 
 export default function Home() {
 
@@ -15,6 +14,6 @@ if(!user) {
 }
 
   return (
-    <GaleriaPage/>
+    <WikiPage/>
   );
 }

@@ -3,7 +3,10 @@
 import { useAuth } from "@/resources";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 import { ToastContainer } from "react-toastify";
+
 
 interface TemplateProps {
     children: React.ReactNode
@@ -14,7 +17,7 @@ export const Template: React.FC<TemplateProps> = ({ children, loading = false }:
     return (
         <>
             <Header />
-            <div className={`${loading ? 'animate-pulse' : ''} container mx-auto mt-8 px-4`}>
+            <div className={`${loading ? 'animate-pulse' : ''} container mx-auto mt-8 px-4`} >
                 <RenderIf condition={loading}>
                     <div className="text-center">
                         <Loading />
@@ -23,7 +26,7 @@ export const Template: React.FC<TemplateProps> = ({ children, loading = false }:
                 {children}
             </div>
             <Footer />
-            <ToastContainer position="top-right"
+            <ToastContainer position='top-right'
                 autoClose={8000}
                 hideProgressBar={false}
                 draggable={false}
@@ -31,7 +34,7 @@ export const Template: React.FC<TemplateProps> = ({ children, loading = false }:
                 pauseOnHover={true}
             />
         </>
-    );
+    )
 }
 
 interface RenderIfProps {
@@ -62,28 +65,27 @@ const Header: React.FC = () => {
 
     const auth = useAuth();
     const user = auth.getUserSession();
-const router = useRouter();
+    const router = useRouter();
 
-    function logout() { 
+    function logout() {
         auth.invalidateSession();
-        router.push("/formulario/login");
+        router.push("/login");
     }
 
     return (
-        <header className="border-b border-gray-500 backdrop-blur-2xl bg-gray-700 text-white py-6">
-            <div className="container mx-auto flex justify-between items-center px-4">
-                <Link href={"/galeria"}>
-                    <h1 className="text-2x1 font-bold">Destino Caxias</h1>
+        <nav className="border-b border-gray-500 rounded-b-lg backdrop-blur-2xl dark:bg-gray-800 text-white py-6">
+            <div className=" mx-auto flex justify-between items-center px-2">
+                <Link href={"/wiki"} >
+                    <h1 className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">CaxiasWiki</h1>
                 </Link>
                 <RenderIf condition={!!user}>
-                    <div className="flex items-center">
+                    <div className="flex items-center text-gray-500 dark:text-gray-300">
                         <div className="relative">
                             <span className="w-64 py-3 px-6 text-md">
                                 {user?.name}
-
                             </span>
                             <span className="w-64 py-3 px-6 text-sm">
-                                <a href={`#`} onClick={logout}>
+                                <a href={'/login'} onClick={logout}>
                                     Sair
                                 </a>
                             </span>
@@ -91,18 +93,56 @@ const router = useRouter();
                     </div>
                 </RenderIf>
             </div>
-        </header>
+        </nav>
     );
 }
 
 const Footer: React.FC = () => {
     return (
-        <footer className=" backdrop-blur-2xl bg-gray-700 text-white py-5 mt8">
-            <div className="container mx-auto flex justify-between items-center px-4">
-                Contato com Desenvolvedor:
-                <a className="text-blue-500 text-blue-500 hover:underline" href="https://github.com/Henri-BS">GitHub</a>
-                <a className="text-blue-500 text-blue-500 hover:underline" href="mailto:hbsantos@gmail.com">Email</a>
-            </div>
-        </footer>
+        <>
+            <footer className="mt-2 bg-white rounded-t-lg shadow dark:bg-gray-900 ">
+                <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+                    <div className="sm:flex sm:items-center sm:justify-between">
+                        <a href="#" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+
+                            <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">CaxiasWiki</span>
+                        </a>
+                        <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-300">
+                            <li>
+                                <a href="#" className="hover:underline me-4 md:me-6">Sobre o Wiki Caxias</a>
+                            </li>
+                            <li>
+                                <a href="#" className="hover:underline me-4 md:me-6">Tutorial do Site</a>
+                            </li>
+                            <li>
+                                <a href="#" className="hover:underline me-4 md:me-6">Como Contribuir</a>
+                            </li>
+                            <li>
+                                <a href="#" className="hover:underline">Termos de uso e privacidade</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+                    <div className="sm:flex sm:items-center sm:justify-between">
+                        <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 Pasifcode.
+                        </span>
+                        <div className="flex mt-4 lg:justify-center lg:mt-0 text-xl">
+                            <a href="mailto:hbsantos@gmail.com" className="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                                <MdEmail />
+                                <span className="sr-only">Email</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/henrique-b-santos-1758351a3/" className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
+                                <FaLinkedin />
+                                <span className="sr-only">Linkedin page</span>
+                            </a>
+                            <a href="https://github.com/Henri-BS" className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
+                                <FaGithub />
+                                <span className="sr-only">GitHub account</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </>
     );
 }

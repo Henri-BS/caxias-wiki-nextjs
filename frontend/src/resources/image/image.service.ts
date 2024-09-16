@@ -1,4 +1,4 @@
-import { useAuth } from "../user/user.service";
+import { useAuth } from "../user/authentication.service";
 import { Image } from "./image.resource";
 
 class ImageService {
