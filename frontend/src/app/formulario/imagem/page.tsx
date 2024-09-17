@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { useImageService } from "@/resources/image/image.service";
 import { FormProps, formSchema, formValidationSchema } from "./imageFormSchema";
+import { FaImage } from "react-icons/fa";
 
 
 export default function FormularioPage() {
@@ -51,7 +52,9 @@ export default function FormularioPage() {
         <AuthenticatedPage>
             <Template loading={loading}>
                 <section className="flex flex-col items-center justify-center my-5">
-                    <h5 className="mt-3 mb-10 text-3xl font-extrabold tracking-tight text-gray-900">Nova Imagem</h5>
+                    <span className="flex gap-2 mt-3 mb-10 text-3xl font-extrabold tracking-tight text-gray-900">
+                        Adicionar Nova Imagem <FaImage />
+                    </span>
                     <form onSubmit={formik.handleSubmit}>
                         <div className="grid grid-cols-1">
                             <label className="block text-sm font-medium leading-6 text-gray-700">Nome: *</label>
@@ -100,7 +103,7 @@ export default function FormularioPage() {
                             </div>
                         </div>
                         <div className="mt-5 flex items-center justify-end gap-x-4">
-                            <Button style="bg-blue-600 hover:bg-blue-400" label="Salvar" />
+                            <Button style="bg-green-600 hover:bg-green-400" label="Salvar" />
                             <Link href="/galeria">
                                 <Button style="bg-red-600 hover:bg-red-400" label="Cancelar" />
                             </Link>

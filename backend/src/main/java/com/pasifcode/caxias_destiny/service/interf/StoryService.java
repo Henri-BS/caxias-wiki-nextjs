@@ -10,6 +10,6 @@ public interface StoryService {
 
     List<Story> searchStory(String query);
 
-    Optional<Story> findStoryById(String id);
+    Story findStoryById(String id);
 
 }

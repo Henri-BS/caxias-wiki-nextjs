@@ -11,10 +11,6 @@ public class StorySpec {
         return (root, q, cb) -> cb.like(cb.upper(root.get("name")), "%" + name.toUpperCase() + "%");
     }
 
-    public static Specification<Story> locationsLike(String locations) {
-        return (root, q, cb) -> cb.like(cb.upper(root.get("locations")), "%" + locations.toUpperCase() + "%");
-    }
-
     public static Specification<Story> tagsLike(String tags) {
         return (root, q, cb) -> cb.like(cb.upper(root.get("tags")), "%" + tags.toUpperCase() + "%");
     }

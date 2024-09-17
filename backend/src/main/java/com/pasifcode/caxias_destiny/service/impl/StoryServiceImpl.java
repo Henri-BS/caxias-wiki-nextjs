@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,12 +23,12 @@ public class StoryServiceImpl implements StoryService {
 
     @Override
     public List<Story> searchStory(String query){
-        return storyRepository.findByNameOrLocationsOrTagsLike(query);
+        return storyRepository.findByNameOrTagsLike(query);
     }
 
     @Override
-    public Optional<Story> findStoryById(String id) {
-        return storyRepository.findById(id);
+    public Story findStoryById(String id) {
+        return storyRepository.findById(id).orElseThrow();
     }
 
 

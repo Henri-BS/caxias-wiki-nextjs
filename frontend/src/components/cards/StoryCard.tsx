@@ -1,15 +1,18 @@
 'use client'
 
+import Link from "next/link";
+
 
 interface StoryCardProps {
     id?: string;
     nome?: string;
     dataUpload?: string;
     imagem?:  string;
+    descricao?: string;
 }
 
 export const StoryCard: React.FC<StoryCardProps> = ({
-    nome, dataUpload, imagem
+    id, nome, dataUpload, imagem, descricao
 }: StoryCardProps) => {
 
 function download(){
@@ -22,10 +25,12 @@ function download(){
             <div className="card-body p-6">
                 <h5 className="text-xl font-semibold mb-2 text-gray-100">{nome}</h5>
                 <p className="text-gray-100">{dataUpload}</p>
-                
+                <p className="text-gray-100">{descricao}</p>
             </div>
         </div>
+
     );
 }
+
 
 

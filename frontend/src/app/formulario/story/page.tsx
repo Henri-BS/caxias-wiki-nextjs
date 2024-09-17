@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { useStoryService } from "@/resources";
 import { FormProps, formSchema, formValidationSchema } from "./storyFormSchema";
+import { FaBook } from "react-icons/fa";
 
 
 export default function FormularioPage() {
@@ -25,7 +26,7 @@ export default function FormularioPage() {
         setLoading(true);
 
         const formData = new FormData();
-        formData.append("name", dados.name);        
+        formData.append("name", dados.name);
         formData.append("imageUrl", dados.imageUrl);
         formData.append("tags", dados.tags);
         formData.append("description", dados.description);
@@ -41,7 +42,9 @@ export default function FormularioPage() {
         <AuthenticatedPage>
             <Template loading={loading}>
                 <section className="flex flex-col items-center justify-center my-5">
-                    <h5 className="mt-3 mb-10 text-4xl font-extrabold tracking-tight text-gray-900">Criar Nova Publicação</h5>
+                    <span className="flex gap-2 mt-3 mb-10 text-4xl font-extrabold tracking-tight text-gray-900">
+                        Criar Nova Wiki <FaBook />
+                    </span>
                     <form onSubmit={formik.handleSubmit}>
                         <div className="mt-5 grid grid-cols-1">
                             <label className="block text-sm font-medium leading-6 text-gray-700">Nome: *</label>
@@ -63,10 +66,10 @@ export default function FormularioPage() {
                         </div>
                         <div className='mt-5 grid grid-cols-1'>
                             <label className='block text-sm font-medium leading-6 text-gray-700'>Tags: *</label>
-                            <InputText id="tags" 
-                                    onChange={formik.handleChange} 
-                                    value={formik.values.tags}
-                                    placeholder="Tag1, Tag2, Tag3..." />
+                            <InputText id="tags"
+                                onChange={formik.handleChange}
+                                value={formik.values.tags}
+                                placeholder="Tag1, Tag2, Tag3..." />
                             <FieldError error={formik.errors.tags} />
                         </div>
                         <div className="mt-5 grid grid-cols-1">
@@ -77,9 +80,9 @@ export default function FormularioPage() {
                                 value={formik.values.description}
                                 placeholder="Uma descrição detalhada sobre o item" />
                         </div>
-                        
+
                         <div className="mt-5 flex items-center justify-end gap-x-4">
-                            <Button style="bg-blue-600 hover:bg-blue-400" label="Salvar" />
+                            <Button style="bg-green-600 hover:bg-green-400" label="Salvar" />
                             <Link href="/wiki">
                                 <Button style="bg-red-600 hover:bg-red-400" label="Cancelar" />
                             </Link>

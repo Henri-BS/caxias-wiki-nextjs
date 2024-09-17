@@ -5,3 +5,6 @@ export {Story} from "./story/story.resource"
 export {useAuth} from "./user/authentication.service"
 export {Credentials, AccessToken, User, UserSessionToken} from "./user/user.resource"
 
+export type Props = {
+    id?: string;
+}

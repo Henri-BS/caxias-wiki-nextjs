@@ -5,7 +5,7 @@ class StoryService {
   baseUrl: string = "http://localhost:8080/v1/stories";
   auth = useAuth();
 
-  async findStory(query?: string): Promise<Story[]> {
+  async findStories(query?: string): Promise<Story[]> {
     const userSession = this.auth.getUserSession();
     const url = `${this.baseUrl}?query=${query}`;
     const response = await fetch(url, {
@@ -15,6 +15,8 @@ class StoryService {
     });
     return await response.json();
   }
+
+  
 
   async saveStory(data: FormData): Promise<string> {
     const userSession = this.auth.getUserSession();

@@ -7,7 +7,6 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { ToastContainer } from "react-toastify";
 
-
 interface TemplateProps {
     children: React.ReactNode
     loading?: boolean;
@@ -15,7 +14,7 @@ interface TemplateProps {
 
 export const Template: React.FC<TemplateProps> = ({ children, loading = false }: TemplateProps) => {
     return (
-        <>
+        <section>
             <Header />
             <div className={`${loading ? 'animate-pulse' : ''} container mx-auto mt-8 px-4`} >
                 <RenderIf condition={loading}>
@@ -33,7 +32,7 @@ export const Template: React.FC<TemplateProps> = ({ children, loading = false }:
                 closeOnClick={true}
                 pauseOnHover={true}
             />
-        </>
+        </section>
     )
 }
 
@@ -73,27 +72,29 @@ const Header: React.FC = () => {
     }
 
     return (
-        <nav className="border-b border-gray-500 rounded-b-lg backdrop-blur-2xl dark:bg-gray-800 text-white py-6">
+        <header className="border-b border-gray-500 rounded-b-lg backdrop-blur-2xl dark:bg-gray-800 text-white py-6">
             <div className=" mx-auto flex justify-between items-center px-2">
                 <Link href={"/wiki"} >
-                    <h1 className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">CaxiasWiki</h1>
+                    <h1 className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+                        CaxiasWiki
+                    </h1>
                 </Link>
-                <RenderIf condition={!!user}>
-                    <div className="flex items-center text-gray-500 dark:text-gray-300">
+                <div className="flex items-center text-gray-500 dark:text-gray-300">
+                    <RenderIf condition={!!user}>
                         <div className="relative">
                             <span className="w-64 py-3 px-6 text-md">
                                 {user?.name}
                             </span>
-                            <span className="w-64 py-3 px-6 text-sm">
-                                <a href={'/login'} onClick={logout}>
-                                    Sair
-                                </a>
-                            </span>
+                            <a className="w-64 py-3 px-6 text-sm" href={'/login'} onClick={logout}>
+                                Sair
+                            </a>
+
                         </div>
-                    </div>
-                </RenderIf>
+                    </RenderIf>
+                </div>
+
             </div>
-        </nav>
+        </header>
     );
 }
 

@@ -13,11 +13,11 @@ import static com.pasifcode.caxias_destiny.infra.spec.StorySpec.*;
 import static org.springframework.data.jpa.domain.Specification.where;
 
 public interface StoryRepository extends JpaRepository<Story, String>, JpaSpecificationExecutor<Story> {
-    default List<Story> findByNameOrLocationsOrTagsLike(String query) {
+    default List<Story> findByNameOrTagsLike(String query) {
         Specification<Story> spec = where(conjuction());
 
         if (StringUtils.hasText(query)) {
-            spec = spec.and(Specification.anyOf(nameLike(query), locationsLike(query), tagsLike(query)));
+            spec = spec.and(Specification.anyOf(nameLike(query), tagsLike(query)));
         }
         return findAll(spec);
     }
