@@ -2,7 +2,6 @@ package com.pasifcode.caxiaswiki.application.security;
 
 import com.pasifcode.caxiaswiki.domain.entity.User;
 import com.pasifcode.caxiaswiki.application.exception.InvalidTokenException;
-import com.pasifcode.caxiaswiki.service.impl.JwtService;
 import com.pasifcode.caxiaswiki.service.interf.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

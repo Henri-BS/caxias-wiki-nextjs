@@ -1,7 +1,5 @@
-package com.pasifcode.caxiaswiki.service.impl;
+package com.pasifcode.caxiaswiki.application.security;
 
-import com.pasifcode.caxiaswiki.application.security.SecretKeyGenerator;
-import com.pasifcode.caxiaswiki.application.security.AccessToken;
 import com.pasifcode.caxiaswiki.domain.entity.User;
 import com.pasifcode.caxiaswiki.application.exception.InvalidTokenException;
 import io.jsonwebtoken.*;
@@ -59,8 +57,8 @@ public class JwtService {
             Claims claims = jwsClaims.getPayload();
             return claims.getSubject();
 
-        }catch (JwtException e){
+        } catch (JwtException e) {
             throw new InvalidTokenException(e.getMessage());
         }
     }
-    }
+}

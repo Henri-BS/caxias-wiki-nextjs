@@ -10,10 +10,10 @@ export class Wiki {
 }
 
 class WikiService {
-  baseUrl: string = "http://localhost:8080/v1/stories";
+  baseUrl: string = "http://localhost:8080/v1/wikis";
   auth = useAuth();
 
-  async findStories(query?: string): Promise<Wiki[]> {
+  async findWikis(query?: string): Promise<Wiki[]> {
     const userSession = this.auth.getUserSession();
     const url = `${this.baseUrl}?query=${query}`;
     const response = await fetch(url, {

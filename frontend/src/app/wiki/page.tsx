@@ -3,25 +3,25 @@
 import { useState } from "react";
 import { Template } from "@/components/Template";
 import { Button } from "@/components/button";
-import { InputText } from "@/components/input";
 import { useNotification } from "@/components/notification";
 import { useWikiService, Wiki } from "@/resources/wiki";
 import Link from "next/link";
 import { FaBook, FaImages } from "react-icons/fa";
 import { WikiCard } from "@/components/card/WikiCard";
+import { InputText } from "@/components/input/Input";
 
 export default function WikiPage() {
 
     const useService = useWikiService();
     const notification = useNotification();
-    const [stories, setStories] = useState<Wiki[]>([]);
+    const [wikis, setWikis] = useState<Wiki[]>([]);
     const [query, setQuery] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
 
     async function searchWikis() {
         setLoading(true);
-        const result = await useService.findStories(query);
-        setStories(result);
+        const result = await useService.findWikis(query);
+        setWikis(result);
         setLoading(false);
         if (!result.length) {
             notification.notify("Nenhum resultado encontrado!", "warning");
@@ -42,20 +42,19 @@ export default function WikiPage() {
     }
 
     function renderWikiCards() {
-        return stories.map(renderWikiCard);
+        return wikis.map(renderWikiCard);
     }
 
     return (
         <>
             <Template loading={loading}>
-                <div className="flex items-center justify-between my-5">
+                <div className="flex items-center justify-between my-5" >
                     <div className="flex gap-2">
                         <Link href="/wiki">
                             <Button type="submit"
                                 style="gap-1 items-center bg-gradient-to-r from-sky-600 to-emerald-600 hover:from-sky-500 hover:to-emerald-500"
                                 label="Wiki" icon={<FaBook />}
                                 onClick={searchWikis} />
-
                         </Link>
                         <Link href="/galeria">
                             <Button type="submit"

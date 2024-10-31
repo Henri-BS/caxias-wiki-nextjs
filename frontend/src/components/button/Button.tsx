@@ -15,7 +15,7 @@ export const Button: React.FC<ButtonProps> = ({
 
         <button 
         type={type}
-        className={`${style} flex text-white font-bold transition ease-in duration-600 px-4 py-3 rounded-md `} 
+        className={`${style} flex items-center gap-x-2 text-white font-bold transition ease-in duration-600 px-3 py-2 rounded-md `} 
         onClick={onClick}>
             {label} {icon}
         </button>

@@ -11,7 +11,7 @@ public enum ImageExtension {
     JPEG(MediaType.IMAGE_JPEG);
 
     @Getter
-    private MediaType mediaType;
+    private final MediaType mediaType;
 
     ImageExtension(MediaType mediaType){
         this.mediaType = mediaType;

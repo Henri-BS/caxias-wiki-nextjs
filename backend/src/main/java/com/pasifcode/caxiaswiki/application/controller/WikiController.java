@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/stories")
+@RequestMapping("/v1/wikis")
 @RequiredArgsConstructor
 public class WikiController {
 
@@ -35,8 +35,8 @@ public class WikiController {
 
     @GetMapping("/{id}")
     public ResponseEntity<WikiDto> findWikiById(@PathVariable String id) {
-        var story = wikiService.findById(id);
-        var dto = wikiMapper.wikiToDto(story);
+        var wiki = wikiService.findById(id);
+        var dto = wikiMapper.wikiToDto(wiki);
         return ResponseEntity.ok(dto);
     }
 
@@ -44,7 +44,7 @@ public class WikiController {
     public ResponseEntity<List<WikiDto>> searchWiki(
             @RequestParam(value = "query", required = false, defaultValue = "") String query) {
         var result = wikiService.searchWiki(query);
-        var stories = result.stream().map(wikiMapper::wikiToDto).toList();
-        return ResponseEntity.ok(stories);
+        var wikis = result.stream().map(wikiMapper::wikiToDto).toList();
+        return ResponseEntity.ok(wikis);
     }
 }

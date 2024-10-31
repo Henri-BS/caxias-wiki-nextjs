@@ -23,6 +23,7 @@ public class Wiki {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "wiki_id")
     private String id;
+    @Column(unique = true)
     private String name;
     @Column(columnDefinition = "TEXT")
     private String description;

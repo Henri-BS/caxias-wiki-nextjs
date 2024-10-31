@@ -1,6 +1,7 @@
 package com.pasifcode.caxiaswiki.service.impl;
 
 import com.pasifcode.caxiaswiki.application.security.AccessToken;
+import com.pasifcode.caxiaswiki.application.security.JwtService;
 import com.pasifcode.caxiaswiki.domain.entity.User;
 import com.pasifcode.caxiaswiki.application.exception.DuplicatedTupleException;
 import com.pasifcode.caxiaswiki.infra.repository.UserRepository;

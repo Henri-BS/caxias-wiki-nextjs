@@ -7,9 +7,10 @@ import { useWikiService } from "@/resources/wiki";
 import { FormProps, formSchema, formValidationSchema } from "./wikiFormSchema";
 import { FaBook } from "react-icons/fa";
 import { Button } from "@/components/button";
-import { InputText, FieldError, TextArea } from "@/components/input";
 import { useNotification } from "@/components/notification";
 import { Template } from "@/components/Template";
+import { FieldError } from "@/components/input/FieldError";
+import { InputText, TextArea } from "@/components/input/Input";
 
 
 export default function AddWikiForm() {

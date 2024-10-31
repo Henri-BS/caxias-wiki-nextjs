@@ -7,9 +7,9 @@ import { FaBook, FaImages } from "react-icons/fa";
 import { AuthenticatedPage } from "@/components/AuthenticatedPage";
 import { Button } from "@/components/button";
 import { ImageCard } from "@/components/card/ImageCard";
-import { InputText } from "@/components/input";
 import { useNotification } from "@/components/notification";
 import { Template } from "@/components/Template";
+import { InputText } from "@/components/input/Input";
 
 export default function GaleriaPage() {
 
@@ -57,7 +57,7 @@ export default function GaleriaPage() {
                     <div className="flex gap-2">
                             <Link href="/wiki">
                                 <Button 
-                                    style="gap-1 items-center bg-gradient-to-r from-sky-700 to-emerald-700 hover:from-sky-600 hover:to-emerald-600"
+                                    style="bg-gradient-to-r from-sky-700 to-emerald-700 hover:from-sky-600 hover:to-emerald-600"
                                     label="Wiki" 
                                     icon={<FaBook/>}
                                     />
@@ -65,7 +65,7 @@ export default function GaleriaPage() {
                             </Link>
                             <Link href="/galeria">
                                 <Button type="submit"
-                                    style="gap-1 items-center bg-gradient-to-r from-purple-700 to-cyan-700  hover:from-purple-600 hover:to-cyan-600"
+                                    style="bg-gradient-to-r from-purple-700 to-cyan-700  hover:from-purple-600 hover:to-cyan-600"
                                     label="Galeria" 
                                     icon={<FaImages/>}
                                     onClick={searchImages} />

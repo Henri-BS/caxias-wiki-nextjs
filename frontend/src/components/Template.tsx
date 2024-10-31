@@ -3,9 +3,12 @@
 import { useAuth } from "@/resources/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { useEffect } from "react";
+import { FaGithub, FaLinkedin, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { ToastContainer } from "react-toastify";
+import { Button } from "./button";
+import { IoLogInOutline, IoLogOut, IoLogOutOutline, IoPeople, IoPerson, IoPersonOutline } from "react-icons/io5";
 
 interface TemplateProps {
     children: React.ReactNode
@@ -14,7 +17,7 @@ interface TemplateProps {
 
 export const Template: React.FC<TemplateProps> = ({ children, loading = false }: TemplateProps) => {
     return (
-        <section>
+        <div>
             <Header />
             <div className={`${loading ? 'animate-pulse' : ''} container mx-auto mt-8 px-4`} >
                 <RenderIf condition={loading}>
@@ -32,7 +35,7 @@ export const Template: React.FC<TemplateProps> = ({ children, loading = false }:
                 closeOnClick={true}
                 pauseOnHover={true}
             />
-        </section>
+        </div>
     )
 }
 
@@ -72,29 +75,36 @@ const Header: React.FC = () => {
     }
 
     return (
-        <header className="border-b border-gray-500 rounded-b-lg backdrop-blur-2xl dark:bg-gray-800 text-white py-6">
+        <div className="border-b border-gray-500 rounded-b-lg backdrop-blur-2xl dark:bg-gray-800 text-white py-6">
             <div className=" mx-auto flex justify-between items-center px-2">
                 <Link href={"/wiki"} >
                     <h1 className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
                         CaxiasWiki
                     </h1>
                 </Link>
-                <div className="flex items-center text-gray-500 dark:text-gray-300">
+                <div className="flex text-gray-300">
+                    <RenderIf condition={!user}>
+                        <Link href={"/login"}>
+                            <Button style="border  border-sky-800 hover:border-sky-500 "
+                                label={"Login"}
+                                icon={<IoLogInOutline />}
+                            />
+                        </Link>
+                    </RenderIf>
                     <RenderIf condition={!!user}>
-                        <div className="relative">
-                            <span className="w-64 py-3 px-6 text-md">
-                                {user?.name}
-                            </span>
-                            <a className="w-64 py-3 px-6 text-sm" href={'/login'} onClick={logout}>
-                                Sair
-                            </a>
-
+                        <div className="flex flex-row justify-end items-center gap-x-2 w-64  text-lg font-semibold">
+                            {user?.name} <IoPersonOutline />
+                            <Button style="border border-[transparent] hover:border-red-600"
+                                onClick={logout}
+                                label={"Sair"}
+                                icon={<IoLogOutOutline />}
+                            />
                         </div>
                     </RenderIf>
                 </div>
 
             </div>
-        </header>
+        </div>
     );
 }
 

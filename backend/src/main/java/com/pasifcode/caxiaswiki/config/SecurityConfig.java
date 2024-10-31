@@ -1,7 +1,7 @@
 package com.pasifcode.caxiaswiki.config;
 
 import com.pasifcode.caxiaswiki.application.security.JwtFilter;
-import com.pasifcode.caxiaswiki.service.impl.JwtService;
+import com.pasifcode.caxiaswiki.application.security.JwtService;
 import com.pasifcode.caxiaswiki.service.interf.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,7 +40,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .authorizeHttpRequests((requests) -> {
                     requests.requestMatchers("/v1/users/**").permitAll();
                     requests.requestMatchers(HttpMethod.GET, "/v1/images/**").permitAll();
-                    requests.requestMatchers(HttpMethod.GET, "/v1/stories/**").permitAll();
+                    requests.requestMatchers(HttpMethod.GET, "/v1/wikis/**").permitAll();
                     requests.anyRequest().authenticated();
                 })
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

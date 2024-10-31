@@ -9,15 +9,13 @@ interface InputTextProps {
     value?: string;
 }
 
-
-
 export const InputText: React.FC<InputTextProps> = ({
-    style, type="text", ...inputProps
+    style, type = "text", ...inputProps
 }: InputTextProps) => {
     return (
         <input
-        type={type}
-        {...inputProps}
+            type={type}
+            {...inputProps}
             className={`${style} border border-gray-800 px-4 py-2 rounded-md text-gray-900`} />
     );
 }
@@ -27,8 +25,8 @@ export const TextArea: React.FC<InputTextProps> = ({
 }: InputTextProps) => {
     return (
         <textarea
-        {...textProps}
-            className={`${style} border border-gray-800 px-4 py-2 rounded-md text-gray-900`}>
-            </textarea> 
+            {...textProps}
+            className={`${style} border border-gray-800 px-4 py-2 rounded-md text-gray-900 min-h-44`}>
+        </textarea>
     );
 }
