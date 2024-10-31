@@ -1,7 +1,7 @@
     
 
 import Login from "@/app/login/page";
-import { useAuth } from "@/resources";
+import { useAuth } from "@/resources/auth";
 
 interface AuthenticatedPageProps {
     children: React.ReactNode;

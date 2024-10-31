@@ -4,12 +4,14 @@ export interface FormProps {
   name: string;
   notes: string;
   file: string | Blob;
+  wiki: string
 }
 
 export const formSchema: FormProps = {
   name: "",
   notes: "",
   file: "",
+  wiki: ""
 };
 
 export const formValidationSchema = Yup.object().shape({

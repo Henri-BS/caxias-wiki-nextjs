@@ -1,23 +1,25 @@
 'use client'
 
 import { useState } from "react";
-import { Template, StoryCard, Button, InputText, useNotification, AuthenticatedPage } from "@/components";
-import { useStoryService, Story } from "@/resources";
+import { Template } from "@/components/Template";
+import { Button } from "@/components/button";
+import { InputText } from "@/components/input";
+import { useNotification } from "@/components/notification";
+import { useWikiService, Wiki } from "@/resources/wiki";
 import Link from "next/link";
 import { FaBook, FaImages } from "react-icons/fa";
+import { WikiCard } from "@/components/card/WikiCard";
 
 export default function WikiPage() {
 
-    const useService = useStoryService();
+    const useService = useWikiService();
     const notification = useNotification();
-    const [stories, setStories] = useState<Story[]>([]);
-    const [query, setQuery] = useState<string>('');
+    const [stories, setStories] = useState<Wiki[]>([]);
+    const [query, setQuery] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
 
     async function searchWikis() {
-
         setLoading(true);
-
         const result = await useService.findStories(query);
         setStories(result);
         setLoading(false);
@@ -26,57 +28,60 @@ export default function WikiPage() {
         }
     }
 
-    function renderStoryCard(story: Story) {
+    function renderWikiCard(wiki: Wiki) {
         return (
-            <StoryCard
-                key={story.id}
-                nome={story.name}
-                imagem={story.imageUrl}
-                dataUpload={story.createdDate}
-                descricao={story.description}
+            <WikiCard
+                key={wiki.id}
+                id={wiki.id}
+                name={wiki.name}
+                image={wiki.imageUrl}
+                uploadDate={wiki.createdDate}
+                description={wiki.description}
             />
         );
     }
 
-    function renderStoryCards() {
-        return stories.map(renderStoryCard);
+    function renderWikiCards() {
+        return stories.map(renderWikiCard);
     }
 
     return (
         <>
-            <AuthenticatedPage>
-                <Template loading={loading}>
-                    <div className="flex items-center justify-between my-5">
-                        <div className="flex gap-2">
-                            <Link href="/wiki">
-                                <Button type="button"
-                                    style="gap-1 items-center bg-gradient-to-r from-sky-600 to-emerald-500 hover:from-sky-500 hover:to-emerald-400"
-                                    label="Wiki" icon={<FaBook/>}/>
-                                    
-                            </Link>
-                            <Link href="/galeria">
-                                <Button type="submit"
-                                    style="gap-1 items-center bg-gradient-to-r from-purple-600 to-cyan-500  hover:from-purple-500 hover:to-cyan-400"
-                                    label="Galeria" 
-                                    icon={<FaImages/>}
-                                    onClick={searchWikis} />
-                            </Link>
-                        </div>
-                        <div className="flex space-x-4">
+            <Template loading={loading}>
+                <div className="flex items-center justify-between my-5">
+                    <div className="flex gap-2">
+                        <Link href="/wiki">
+                            <Button type="submit"
+                                style="gap-1 items-center bg-gradient-to-r from-sky-600 to-emerald-600 hover:from-sky-500 hover:to-emerald-500"
+                                label="Wiki" icon={<FaBook />}
+                                onClick={searchWikis} />
 
-                            <InputText onChange={event => setQuery(event.target.value)} placeholder="Buscar por nomes ou tags" />
-                            <Button type="submit" style="bg-blue-600 hover:bg-blue-500" label="Buscar" onClick={searchWikis} />
-                            <Link href="/formulario/story">
-                                <Button type="button" style="bg-green-600 hover:bg-green-500" label="Adicionar Story" />
-                            </Link>
+                        </Link>
+                        <Link href="/galeria">
+                            <Button type="submit"
+                                style="gap-1 items-center bg-gradient-to-r from-purple-600 to-cyan-600  hover:from-purple-500 hover:to-cyan-500"
+                                label="Galeria"
+                                icon={<FaImages />} />
+                        </Link>
+                    </div>
+                    <div className="flex space-x-4">
 
-                        </div>
+                        <InputText onChange={event => setQuery(event.target.value)} placeholder="Buscar por nomes ou tags" />
+                        <Button type="submit"
+                            style="bg-blue-600 hover:bg-blue-500"
+                            label="Buscar"
+                            onClick={searchWikis} />
+                        <Link href="/wiki/adicionar">
+                            <Button type="button"
+                                style="bg-green-600 hover:bg-green-500"
+                                label="Adicionar Wiki" />
+                        </Link>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
-                        {renderStoryCards()}
-                    </div>
-                </Template>
-            </AuthenticatedPage>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                    {renderWikiCards()}
+                </div>
+            </Template>
         </>
     );
 }

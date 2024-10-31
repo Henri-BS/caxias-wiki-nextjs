@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.pasifcode</groupId>
-    <artifactId>caxias-destiny</artifactId>
+    <artifactId>caxiaswiki</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>caxias-destiny</name>
+    <name>caxiaswiki</name>
     <description>Projeto destinado a ilustrar e descrever detalhes sobre a cultura, fauna, flora e locais em Caxias do
         Maranhão
     </description>

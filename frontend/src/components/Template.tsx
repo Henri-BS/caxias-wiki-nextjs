@@ -1,6 +1,6 @@
 'use client'
 
-import { useAuth } from "@/resources";
+import { useAuth } from "@/resources/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaGithub, FaLinkedin } from "react-icons/fa";

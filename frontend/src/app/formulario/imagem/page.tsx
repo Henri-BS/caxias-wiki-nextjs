@@ -1,20 +1,28 @@
 'use client'
 
 import Link from "next/link";
-import { Button, InputText, TextArea, RenderIf, Template, useNotification, FieldError, AuthenticatedPage } from "@/components"
 import { useFormik } from "formik";
 import { useState } from "react";
-import { useImageService } from "@/resources/image/image.service";
+import { useImageService } from "@/resources/image";
 import { FormProps, formSchema, formValidationSchema } from "./imageFormSchema";
 import { FaImage } from "react-icons/fa";
+import {  useWikiService } from "@/resources/wiki";
+import { AuthenticatedPage } from "@/components/AuthenticatedPage";
+import { Button } from "@/components/button";
+import { InputText, FieldError, TextArea } from "@/components/input";
+import { useNotification } from "@/components/notification";
+import { Template, RenderIf } from "@/components/Template";
 
 
-export default function FormularioPage() {
+export default function AddImageForm({params}: any) {
+
+    const wikiId = params.wikiId;
 
     const [loading, setLoading] = useState<boolean>(false);
     const notification = useNotification();
     const [imagePreview, setImagePreview] = useState<string>();
     const service = useImageService();
+
 
     const formik = useFormik<FormProps>({
         initialValues: formSchema,
@@ -30,6 +38,7 @@ export default function FormularioPage() {
         formData.append("file", dados.file);
         formData.append("name", dados.name);
         formData.append("notes", dados.notes);
+        formData.append("wiki", wikiId)
 
         await service.saveImage(formData);
 

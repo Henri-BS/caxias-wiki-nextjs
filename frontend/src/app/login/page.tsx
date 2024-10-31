@@ -5,7 +5,8 @@ import { useState } from 'react'
 import { LoginForm, formSchema, validationSchema } from './loginFormSchema'
 import { useFormik } from 'formik'
 import { useRouter } from 'next/navigation'
-import { AccessToken, Credentials, User, useAuth } from '@/resources'
+import { AccessToken, Credentials, User } from '@/resources/user'
+import { useAuth } from '@/resources/auth';
 
 export default function Login() {
 
@@ -124,7 +125,8 @@ export default function Login() {
                             <RenderIf condition={!newUserState}>
                                 <Button type="submit"
                                     style="bg-blue-600 hover:bg-blue-500"
-                                    label="Login" />
+                                    label="Login" 
+                                    />
                                 <Button type="button"
                                     style="bg-purple-600 hover:bg-purple-500 mx-2"
                                     label="Cadastrar"
