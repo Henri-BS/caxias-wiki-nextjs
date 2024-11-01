@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { FaGithub, FaLinkedin, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { ToastContainer } from "react-toastify";
-import { Button } from "./button";
+import { Button } from "./button/Button";
 import { IoLogInOutline, IoLogOut, IoLogOutOutline, IoPeople, IoPerson, IoPersonOutline } from "react-icons/io5";
 
 interface TemplateProps {

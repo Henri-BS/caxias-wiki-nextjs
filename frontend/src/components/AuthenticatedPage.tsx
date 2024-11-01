@@ -4,7 +4,7 @@ import Login from "@/app/login/page";
 import { useAuth } from "@/resources/auth";
 import Link from "next/link";
 import { IoLogInOutline } from "react-icons/io5";
-import { Button } from "./button";
+import { Button } from "./button/Button";
 
 interface AuthenticatedPageProps {
     children: React.ReactNode;

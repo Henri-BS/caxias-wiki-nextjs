@@ -2,7 +2,7 @@
 
 import { ImageFormProps, imageFormSchema, imageValidationSchema } from "@/app/formSchema";
 import { AuthenticatedPage, RequiredLogin } from "@/components/AuthenticatedPage";
-import { Button } from "@/components/button";
+import { Button } from "@/components/button/Button";
 import { FieldError } from "@/components/input/FieldError";
 import { InputText, TextArea } from "@/components/input/Input";
 

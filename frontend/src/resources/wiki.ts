@@ -6,7 +6,24 @@ export class Wiki {
   imageUrl?: string;
   name?: string;
   description?: string;
+  tags?: string;
   createdDate?: string;
+}
+
+export type WikiPage = {
+  content: Wiki[];
+  
+    totalElements: number;
+    number: number;
+    pageable: {
+      pageNumber: number;
+      pageSize: number;
+    }
+  
+};
+
+export type WikiProps = {
+  wiki: Wiki;
 }
 
 class WikiService {

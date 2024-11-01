@@ -5,6 +5,8 @@ import com.pasifcode.caxiaswiki.domain.dto.WikiDto;
 import com.pasifcode.caxiaswiki.domain.entity.Wiki;
 import com.pasifcode.caxiaswiki.service.interf.WikiService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,10 +43,11 @@ public class WikiController {
     }
 
     @GetMapping
-    public ResponseEntity<List<WikiDto>> searchWiki(
-            @RequestParam(value = "query", required = false, defaultValue = "") String query) {
-        var result = wikiService.searchWiki(query);
-        var wikis = result.stream().map(wikiMapper::wikiToDto).toList();
+    public ResponseEntity<Page<WikiDto>> searchWikis(
+            @RequestParam(required = false, defaultValue = "") String query,
+            Pageable pageable) {
+        var result = wikiService.searchWikis( pageable);
+        var wikis = result.map(wikiMapper::wikiToDto);
         return ResponseEntity.ok(wikis);
     }
 }

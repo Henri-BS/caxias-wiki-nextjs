@@ -5,7 +5,7 @@ import { useImageService, Image } from "@/resources/image";
 import Link from "next/link";
 import { FaBook, FaImages } from "react-icons/fa";
 import { AuthenticatedPage } from "@/components/AuthenticatedPage";
-import { Button } from "@/components/button";
+import { Button } from "@/components/button/Button";
 import { ImageCard } from "@/components/card/ImageCard";
 import { useNotification } from "@/components/notification";
 import { Template } from "@/components/Template";

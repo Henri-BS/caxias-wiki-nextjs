@@ -1,13 +1,13 @@
 package com.pasifcode.caxiaswiki.service.interf;
 
 import com.pasifcode.caxiaswiki.domain.entity.Wiki;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface WikiService {
     Wiki saveWiki(Wiki wiki);
 
-    List<Wiki> searchWiki(String query);
+    Page<Wiki> searchWikis(Pageable pageable);
 
     Wiki findById(String id);
 

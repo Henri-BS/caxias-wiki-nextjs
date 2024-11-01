@@ -4,10 +4,10 @@ import com.pasifcode.caxiaswiki.domain.entity.Wiki;
 import com.pasifcode.caxiaswiki.infra.repository.WikiRepository;
 import com.pasifcode.caxiaswiki.service.interf.WikiService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,8 +22,8 @@ public class WikiServiceImpl implements WikiService {
     }
 
     @Override
-    public List<Wiki> searchWiki(String query){
-        return wikiRepository.findByNameOrTagsLike(query);
+    public Page<Wiki> searchWikis(Pageable pageable){
+        return wikiRepository.findAll(pageable);
     }
 
     @Override

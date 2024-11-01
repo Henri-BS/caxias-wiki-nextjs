@@ -3,6 +3,8 @@ package com.pasifcode.caxiaswiki.infra.repository;
 import com.pasifcode.caxiaswiki.domain.entity.Wiki;
 import com.pasifcode.caxiaswiki.infra.spec.GenericSpec;
 import com.pasifcode.caxiaswiki.infra.spec.WikiSpec;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

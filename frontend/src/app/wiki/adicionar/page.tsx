@@ -4,13 +4,13 @@ import Link from "next/link";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useWikiService } from "@/resources/wiki";
-import { FormProps, formSchema, formValidationSchema } from "./wikiFormSchema";
 import { FaBook } from "react-icons/fa";
-import { Button } from "@/components/button";
+import { Button } from "@/components/button/Button";
 import { useNotification } from "@/components/notification";
 import { Template } from "@/components/Template";
 import { FieldError } from "@/components/input/FieldError";
 import { InputText, TextArea } from "@/components/input/Input";
+import { WikiFormProps, wikiFormSchema, wikiValidationSchema } from "@/app/formSchema";
 
 
 export default function AddWikiForm() {
@@ -19,14 +19,14 @@ export default function AddWikiForm() {
     const notification = useNotification();
     const service = useWikiService();
 
-    const formik = useFormik<FormProps>({
-        initialValues: formSchema,
+    const formik = useFormik<WikiFormProps>({
+        initialValues: wikiFormSchema,
         onSubmit: handleSubmit,
-        validationSchema: formValidationSchema
+        validationSchema: wikiValidationSchema
 
     });
 
-    async function handleSubmit(dados: FormProps) {
+    async function handleSubmit(dados: WikiFormProps) {
         setLoading(true);
 
         const formData = new FormData();
@@ -48,7 +48,7 @@ export default function AddWikiForm() {
                     <span className="flex gap-2 mt-3 mb-10 text-4xl font-extrabold tracking-tight text-gray-900">
                         Criar Nova Wiki <FaBook />
                     </span>
-                    <form onSubmit={formik.handleSubmit}>
+                    <form onSubmit={formik.handleSubmit} className="space-y-2 w-1/2">
                         <div className="mt-5 grid grid-cols-1">
                             <label className="block text-sm font-medium leading-6 text-gray-700">Nome: *</label>
                             <InputText
