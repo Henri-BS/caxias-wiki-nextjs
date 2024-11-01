@@ -1,42 +1,39 @@
 'use client'
 
 import { ImageFormProps, imageFormSchema, imageValidationSchema } from "@/app/formSchema";
-import { AuthenticatedPage, RequiredLogin } from "@/components/AuthenticatedPage";
+import { RequiredLogin } from "@/components/AuthenticatedPage";
 import { Button } from "@/components/button/Button";
+import { ImageCard } from "@/components/card/ImageCard";
 import { FieldError } from "@/components/input/FieldError";
 import { InputText, TextArea } from "@/components/input/Input";
 
 import { useNotification } from "@/components/notification";
+import { Pagination } from "@/components/Pagination";
 import { RenderIf, Template } from "@/components/Template";
-import { useAuth } from "@/resources/auth";
-import { useImageService } from "@/resources/image";
-import { Wiki } from "@/resources/wiki";
+import { Image, ImagePage, useImageService } from "@/resources/image";
+import { useWikiService, Wiki } from "@/resources/wiki";
 import axios from "axios";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaImage } from "react-icons/fa";
-import { IoLogInOutline } from "react-icons/io5";
 
 export default function WikiDetails({ params }: any) {
     const baseUrl = "http://localhost:8080/v1/wikis";
-
     const wikiId = params.wikiId;
-
     const [wiki, setWiki] = useState<Wiki>();
+    const wikiService = useWikiService();
 
     useEffect(() => {
-        axios.get(`${baseUrl}/${wikiId}`)
-            .then((response) => {
-                setWiki(response.data)
-            })
+        wikiService.findWikiById(wikiId).then((response) => {
+            setWiki(response)
+        });
     }, [wikiId])
 
-    const [profileContentState, setProfileContentState] = useState<boolean>(false);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [newImageState, setProfileContentState] = useState<boolean>(false);
     const [imagePreview, setImagePreview] = useState<string>();
     const notification = useNotification();
-    const service = useImageService();
+    const imageService = useImageService();
 
     const formik = useFormik<ImageFormProps>({
         initialValues: imageFormSchema,
@@ -53,7 +50,7 @@ export default function WikiDetails({ params }: any) {
         formData.append("notes", dados.notes);
         formData.append("wiki", wikiId)
 
-        await service.saveImage(formData);
+        await imageService.saveImage(formData);
 
         formik.resetForm();
         setImagePreview('');
@@ -70,7 +67,27 @@ export default function WikiDetails({ params }: any) {
         }
     }
 
-    
+
+
+    const [pageNumber, setPageNumber] = useState(0);
+    const handlePageChange = (newPageNumber: number) => {
+        setPageNumber(newPageNumber);
+    }
+    const [imagePage, setImagePage] = useState<ImagePage>({ content: [], number: 0, totalElements: 0, pageable: { pageSize: 0, pageNumber: 0 } });
+    const [query, setQuery] = useState("");
+    const [loading, setLoading] = useState<boolean>(false);
+
+    useEffect(() => {
+        imageService.findImagesByWiki(wikiId, pageNumber, query)
+            .then((response) => {
+                setImagePage(response);
+                setLoading(false);
+                if (response.content.length == 0) {
+                    notification.notify("Nenhum resultado encontrado", "warning")
+                }
+            });
+    }, [wikiId, pageNumber, query]);
+
 
     return (
         <Template>
@@ -84,7 +101,8 @@ export default function WikiDetails({ params }: any) {
                     </p>
                 </div>
             </div>
-            <RenderIf condition={!profileContentState}>
+
+            <RenderIf condition={!newImageState}>
                 <Button type="button"
                     style="bg-green-600 hover:bg-green-500 mx-2"
                     label="Adicionar Imagem"
@@ -93,9 +111,37 @@ export default function WikiDetails({ params }: any) {
                 <div className="mt-5 text-2xl text-slate-800 text-justify">
                     <p>{wiki?.description} </p>
                 </div>
+                <div>
+                    <hr />
+
+                    <div className="flex items-center justify-between my-5" >
+                        <span className="text-2xl">Galeria de Imagens</span>
+                        <div className="flex space-x-4">
+                            <InputText
+                                id="query"
+                                value={query}
+                                onChange={event => setQuery(event.target.value)}
+                                placeholder="Buscar imagens por nome ou data" />
+                        </div>
+                    </div>
+                    <div className="flex items-start w-full justify-center mb-12">
+                        <Pagination pagination={imagePage} onPageChange={handlePageChange} />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                        {imagePage.content?.filter((x) =>
+                            x.name?.normalize("NFD").replace(/[\u0300-\u036f]/g, '').toUpperCase().includes(query.toLocaleUpperCase()) ||
+                            x.uploadDate?.normalize("NFD").replace(/[\u0300-\u036f]/g, '').toUpperCase().includes(query.toLocaleUpperCase())
+                        ).map(x => (
+                            <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                                {<ImageCard image={x} />}
+                            </div>
+                        ))}
+                    </div>
+
+                </div>
             </RenderIf>
 
-            <RenderIf condition={profileContentState}>
+            <RenderIf condition={newImageState}>
                 <Button type="button"
                     style="bg-red-600 hover:bg-red-500 mx-2"
                     label="Cancelar"
@@ -159,12 +205,23 @@ export default function WikiDetails({ params }: any) {
                                 </div>
                             </div>
                             <div className="mt-5 flex items-center justify-end gap-x-4">
-                                <Button style="bg-green-600 hover:bg-green-400" label="Salvar" />
+                                <Button type="submit" style="bg-green-600 hover:bg-green-400" label="Salvar" />
                             </div>
                         </form>
                     </section>
                 </RequiredLogin>
             </RenderIf>
+
         </Template>
+    );
+}
+
+function AddImage({ params }: any) {
+
+    const wikiId = params.wikiId;
+
+    return (
+        <>
+        </>
     );
 }

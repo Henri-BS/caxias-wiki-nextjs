@@ -12,45 +12,57 @@ export class Wiki {
 
 export type WikiPage = {
   content: Wiki[];
-  
-    totalElements: number;
-    number: number;
-    pageable: {
-      pageNumber: number;
-      pageSize: number;
-    }
-  
+
+  totalElements: number;
+  number: number;
+  pageable: {
+    pageNumber: number;
+    pageSize: number;
+  };
 };
 
 export type WikiProps = {
   wiki: Wiki;
-}
+};
 
 class WikiService {
   baseUrl: string = "http://localhost:8080/v1/wikis";
   auth = useAuth();
 
-  async findWikis(query?: string): Promise<Wiki[]> {
+  async findWikis( pageNumber?: number, query?: string): Promise<WikiPage> {
     const userSession = this.auth.getUserSession();
-    const url = `${this.baseUrl}?query=${query}`;
-    const response = await fetch(url, {
+    const url = `${this.baseUrl}?pageNumber=${pageNumber}&query=${query}&size=10`;
+    const response = axios(url, {
       headers: {
         Authorization: `Bearer ${userSession?.accessToken}`,
       },
     });
-    return await response.json();
+    const resp = await response;
+    return resp.data;
+  }
+
+  async findWikiById(id?: string): Promise<Wiki> {
+    const userSession = this.auth.getUserSession();
+    const url = `${this.baseUrl}/${id}`;
+    const response = axios(url, {
+      headers: {
+        Authorization: `Bearer ${userSession?.accessToken}`,
+      },
+    });
+    const resp = await response;
+    return resp.data;
   }
 
   async saveWiki(data: FormData): Promise<string> {
     const userSession = this.auth.getUserSession();
-    const response = await fetch(this.baseUrl, {
+    const response = await axios(this.baseUrl, {
       method: "POST",
-      body: data,
+      data: data,
       headers: {
         Authorization: `Bearer ${userSession?.accessToken}`,
       },
     });
-    return response.headers.get("location") ?? "";
+    return response.data;
   }
 }
 

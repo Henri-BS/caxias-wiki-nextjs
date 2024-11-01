@@ -15,6 +15,7 @@ export const WikiCard: React.FC<WikiProps> = ({wiki}: WikiProps) => {
                     <h5 className="text-xl font-semibold mb-2 text-gray-100">{wiki.name}</h5>
                     <p className="text-gray-100">{wiki.createdDate}</p>
                     <p className="text-gray-100">{wiki.description}</p>
+                    <p className="text-gray-100">{wiki.tags}</p>
                 </div>
             </div>
         </Link>

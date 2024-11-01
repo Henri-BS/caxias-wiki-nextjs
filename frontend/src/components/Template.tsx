@@ -8,7 +8,7 @@ import { FaGithub, FaLinkedin, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { ToastContainer } from "react-toastify";
 import { Button } from "./button/Button";
-import { IoLogInOutline, IoLogOut, IoLogOutOutline, IoPeople, IoPerson, IoPersonOutline } from "react-icons/io5";
+import { IoBookOutline, IoLogInOutline, IoLogOut, IoLogOutOutline, IoPeople, IoPerson, IoPersonOutline } from "react-icons/io5";
 
 interface TemplateProps {
     children: React.ReactNode
@@ -19,7 +19,7 @@ export const Template: React.FC<TemplateProps> = ({ children, loading = false }:
     return (
         <div>
             <Header />
-            <div className={`${loading ? 'animate-pulse' : ''} container mx-auto mt-8 px-4`} >
+            <div className={`${loading ? 'animate-pulse' : ''} container mx-auto mt-8 px-4`}>
                 <RenderIf condition={loading}>
                     <div className="text-center">
                         <Loading />
@@ -44,9 +44,9 @@ interface RenderIfProps {
     children: React.ReactNode;
 }
 
-export const RenderIf: React.FC<RenderIfProps> = ({ condition = true, children }) => {
+export const RenderIf: React.FC<RenderIfProps> = ({ condition = false, children }) => {
     if (condition) {
-        return children;
+        return  children;
     }
     return false;
 }
@@ -82,27 +82,34 @@ const Header: React.FC = () => {
                         CaxiasWiki
                     </h1>
                 </Link>
-                <div className="flex text-gray-300">
+                <div className="flex items-center text-gray-300 gap-x-2" >
+                    <Link href={"/wiki"}>
+                        <Button style="border border-2 border-emerald-800 hover:border-emerald-500 "
+                            label={"Wiki"}
+                            icon={<IoBookOutline />}
+                        />
+                    </Link>
                     <RenderIf condition={!user}>
                         <Link href={"/login"}>
-                            <Button style="border  border-sky-800 hover:border-sky-500 "
+                            <Button style="border border-2 border-sky-800 hover:border-sky-500 "
                                 label={"Login"}
-                                icon={<IoLogInOutline />}
-                            />
+                                icon={<IoLogInOutline />} />
                         </Link>
                     </RenderIf>
                     <RenderIf condition={!!user}>
-                        <div className="flex flex-row justify-end items-center gap-x-2 w-64  text-lg font-semibold">
-                            {user?.name} <IoPersonOutline />
-                            <Button style="border border-[transparent] hover:border-red-600"
+                        <div className="flex flex-row justify-end items-center gap-x-2  text-lg font-semibold">
+                            <abbr title={user?.name} className="flex flex-row items-center gap-2 no-underline">
+                                <Button style="border border-2 border-sky-800 hover:border-sky-500 "
+                                    label={"Perfil"}
+                                    icon={<IoPersonOutline />} />
+                            </abbr>
+                            <Button style="border border-2 border-red-800 hover:border-red-500"
                                 onClick={logout}
                                 label={"Sair"}
-                                icon={<IoLogOutOutline />}
-                            />
+                                icon={<IoLogOutOutline />} />
                         </div>
                     </RenderIf>
                 </div>
-
             </div>
         </div>
     );

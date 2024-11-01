@@ -1,30 +1,19 @@
 'use client'
 
-interface ImageCardProps {
-    nome?: string;
-    tamanho?: number;
-    dataUpload?: string;
-    src?:  string;
-    extension?: string;
-    notas?: string;
-}
+import { ImageProps } from "@/resources/image";
 
-export const ImageCard: React.FC<ImageCardProps> = ({
-    nome, tamanho, dataUpload, src, extension, notas
-}: ImageCardProps) => {
+
+export const ImageCard: React.FC<ImageProps> = ({image}: ImageProps) => {
 
 function download(){
-    window.open(src, '_blank')
+    window.open(image.url, '_blank')
 }
     return (
-        <div className="card relative bg-gray-800 rounded-md shadow-md transition-transform ease-in duration-300 transform hover:shadow-lg hover:-translate-y-2">
-            <img onClick={download} className="h-56 w-full object-cover rounded-t-md" src={src} alt="image" />
-            <div className="card-body p-6">
-                <h5 className="text-xl font-semibold mb-2 text-gray-100">{nome}</h5>
-                <p className="text-gray-100">{extension}</p>
-                <p className="text-gray-100">{formatBytes(tamanho)}</p>
-                <p className="text-gray-100">{dataUpload}</p>
-                <p className="text-gray-100">{notas}</p> 
+        <div className="card cursor-pointer relative w-full bg-gray-800 rounded-md shadow-md transition-transform ease-in duration-300 transform hover:shadow-lg hover:-translate-y-2">
+            <img onClick={download} className="h-96 w-full object-cover rounded-t-md" src={image.url} alt="image" />
+            <div className="card-body p-6 overflow-hidden h-36">
+                <h5 className="text-xl font-semibold mb-2 text-gray-100">{image.name}</h5>
+                <p className="text-gray-100">{image.uploadDate}</p>
             </div>
         </div>
     );

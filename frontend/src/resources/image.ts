@@ -1,6 +1,8 @@
+import axios from "axios";
 import { useAuth } from "./auth";
 
 export class Image {
+  id?: string;
   url?: string;
   name?: string;
   notes?: string;
@@ -9,31 +11,49 @@ export class Image {
   uploadDate?: string;
 }
 
+
+export type ImagePage = {
+  content: Image[];
+
+  totalElements: number;
+  number: number;
+  pageable: {
+    pageNumber: number;
+    pageSize: number;
+  };
+};
+
+
+export type ImageProps = {
+  image: Image;
+};
+
 class ImageService {
   baseUrl: string = "http://localhost:8080/v1/images";
   auth = useAuth();
 
-  async findImage(query?: string, extension?: string): Promise<Image[]> {
+  async findImagesByWiki(wikiId?: string, pageNumber?: number, query?: string ): Promise<ImagePage> {
     const userSession = this.auth.getUserSession();
-    const url = `${this.baseUrl}?query=${query}&extension=${extension}`;
-    const response = await fetch(url, {
+    const url = `${this.baseUrl}?wikiId=${wikiId}&pageNumber=${pageNumber}&query=${query}&size=10`;
+    const response = axios(url, {
       headers: {
         Authorization: `Bearer ${userSession?.accessToken}`,
       },
     });
-    return await response.json();
+    const resp = await response;
+    return resp.data;
   }
 
   async saveImage(data: FormData): Promise<string> {
     const userSession = this.auth.getUserSession();
-    const response = await fetch(this.baseUrl, {
+    const response = await axios(this.baseUrl, {
       method: "POST",
-      body: data,
+      data: data,
       headers: {
         Authorization: `Bearer ${userSession?.accessToken}`,
       },
     });
-    return response.headers.get("location") ?? "";
+    return response.data;
   }
 }
 

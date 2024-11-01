@@ -4,12 +4,10 @@ import { useEffect, useState } from "react";
 import { Template } from "@/components/Template";
 import { Button } from "@/components/button/Button";
 import { useNotification } from "@/components/notification";
-import { useWikiService, Wiki, WikiPage } from "@/resources/wiki";
+import { useWikiService, WikiPage } from "@/resources/wiki";
 import Link from "next/link";
-import { FaBook, FaImages } from "react-icons/fa";
 import { WikiCard } from "@/components/card/WikiCard";
 import { InputText } from "@/components/input/Input";
-import axios from "axios";
 import { Pagination } from "@/components/Pagination";
 
 export default function Wikis() {
@@ -17,9 +15,8 @@ export default function Wikis() {
     const notification = useNotification();
     const [query, setQuery] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
+    const wikiService = useWikiService();
 
-
-    const baseUrl = "http://localhost:8080/v1/wikis";
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
@@ -27,11 +24,13 @@ export default function Wikis() {
     const [wikiPage, setWikiPage] = useState<WikiPage>({ content: [], number: 0, totalElements: 0, pageable:{pageSize:0, pageNumber:0} } );
 
     useEffect(() => {
-        axios.get(`${baseUrl}?page=${pageNumber}&query=${query}&size=10`)
+        wikiService.findWikis(pageNumber, query)
             .then((response) => {
-                setWikiPage(response.data);
+                setWikiPage(response);
                 setLoading(false);
-                
+                if(response.content.length == 0){
+                    notification.notify("Nenhum resultado encontrado", "warning")
+                }
             });
     }, [pageNumber, query]);
 
@@ -39,19 +38,6 @@ export default function Wikis() {
         <>
             <Template loading={loading}>
                 <div className="flex items-center justify-between my-5" >
-                    <div className="flex gap-2">
-                        <Link href="/wiki">
-                            <Button type="submit"
-                                style="gap-1 items-center bg-gradient-to-r from-sky-600 to-emerald-600 hover:from-sky-500 hover:to-emerald-500"
-                                label="Wiki" icon={<FaBook />}/>
-                        </Link>
-                        <Link href="/galeria">
-                            <Button type="submit"
-                                style="gap-1 items-center bg-gradient-to-r from-purple-600 to-cyan-600  hover:from-purple-500 hover:to-cyan-500"
-                                label="Galeria"
-                                icon={<FaImages />} />
-                        </Link>
-                    </div>
                     <div className="flex space-x-4">
 
                         <InputText
@@ -71,8 +57,8 @@ export default function Wikis() {
                         </div>
                 <div className="grid grid-cols-2 gap-4">
                     {wikiPage.content?.filter((x) =>
-                        x.name?.toUpperCase().includes(query.toLocaleUpperCase()) ||
-                        x.tags?.toUpperCase().includes(query.toLocaleUpperCase())
+                        x.name?.normalize("NFD").replace(/[\u0300-\u036f]/g, '').toUpperCase().includes(query.toLocaleUpperCase()) ||
+                        x.tags?.normalize("NFD").replace(/[\u0300-\u036f]/g, '').toUpperCase().includes(query.toLocaleUpperCase())
                     )
                         .map(x => (
                             <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
