@@ -22,6 +22,7 @@ export const loginValidationSchema  = Yup.object().shape({
 
 
 export interface WikiFormProps {
+  id: string;
   name: string;
   description: string;
   tags: string;
@@ -29,6 +30,7 @@ export interface WikiFormProps {
 }
 
 export const wikiFormSchema: WikiFormProps = {
+  id: "",
   name: "",
   description: "",
   tags: "",
@@ -40,7 +42,7 @@ export const wikiValidationSchema = Yup.object().shape({
     .trim()
     .required("O campo nome é obrigatório!")
     .min(3, "O nome deve ter no mínimo 3 caracteres!")
-    .max(50, "O nome deve ter no máximo 50 caracteres!"),
+    .max(80, "O nome deve ter no máximo 80 caracteres!"),
 
   tags: Yup.string()
     .trim()
@@ -67,7 +69,7 @@ export const imageValidationSchema = Yup.object().shape({
     .trim()
     .required("O campo nome é obrigatório!")
     .min(3, "O nome deve ter no mínimo 3 caracteres!")
-    .max(50, "O nome deve ter no máximo 50 caracteres!"),
+    .max(80, "O nome deve ter no máximo 80 caracteres!"),
 
   file: Yup.mixed<Blob>()
     .required("Selecione a imagem para enviar!")

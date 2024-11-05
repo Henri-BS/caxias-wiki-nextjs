@@ -14,6 +14,7 @@ export class AccessToken {
 }
 
 export class UserSessionToken {
+    id?: string;
     name?: string;
     email?: string;
     accessToken?: string;

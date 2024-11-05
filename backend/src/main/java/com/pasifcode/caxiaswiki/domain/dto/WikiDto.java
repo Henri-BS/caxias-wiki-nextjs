@@ -12,6 +12,7 @@ public class WikiDto {
     private String id;
     private String name;
     private String description;
+    private String tags;
     private String imageUrl;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime createdDate;

@@ -26,14 +26,14 @@ export default function AddWikiForm() {
 
     });
 
-    async function handleSubmit(dados: WikiFormProps) {
+    async function handleSubmit(data: WikiFormProps) {
         setLoading(true);
 
         const formData = new FormData();
-        formData.append("name", dados.name);
-        formData.append("imageUrl", dados.imageUrl);
-        formData.append("tags", dados.tags);
-        formData.append("description", dados.description);
+        formData.append("name", data.name);
+        formData.append("imageUrl", data.imageUrl);
+        formData.append("tags", data.tags);
+        formData.append("description", data.description);
 
         await service.saveWiki(formData);
 

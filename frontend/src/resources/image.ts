@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useAuth } from "./auth";
+import { Wiki } from "./wiki";
 
 export class Image {
   id?: string;
@@ -32,9 +33,9 @@ class ImageService {
   baseUrl: string = "http://localhost:8080/v1/images";
   auth = useAuth();
 
-  async findImagesByWiki(wikiId?: string, pageNumber?: number, query?: string ): Promise<ImagePage> {
+  async findImagesByWiki(wikiId?: Wiki, pageNumber?: number, query?: string ): Promise<ImagePage> {
     const userSession = this.auth.getUserSession();
-    const url = `${this.baseUrl}?wikiId=${wikiId}&pageNumber=${pageNumber}&query=${query}&size=10`;
+    const url = `${this.baseUrl}?wikiId=${wikiId}&pageNumber=${pageNumber}&query=${query}&size=6`;
     const response = axios(url, {
       headers: {
         Authorization: `Bearer ${userSession?.accessToken}`,

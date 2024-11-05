@@ -4,6 +4,8 @@ import com.pasifcode.caxiaswiki.domain.entity.Wiki;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+
+
 public interface WikiService {
     Wiki saveWiki(Wiki wiki);
 
@@ -11,4 +13,5 @@ public interface WikiService {
 
     Wiki findById(String id);
 
+    Wiki updateWiki(String name, String description, String imageUrl, String id);
 }

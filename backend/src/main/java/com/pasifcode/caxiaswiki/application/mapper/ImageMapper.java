@@ -16,7 +16,6 @@ public class ImageMapper {
         return Image.builder()
                 .name(name)
                 .notes(notes)
-                .size(file.getSize())
                 .extension(ImageExtension.valueOf(MediaType.valueOf(file.getContentType())))
                 .file(file.getBytes())
                 .wiki(wiki)
@@ -29,7 +28,6 @@ public class ImageMapper {
                 .extension(entity.getExtension().name())
                 .name(entity.getName())
                 .notes(entity.getNotes())
-                .size(entity.getSize())
                 .uploadDate(entity.getUploadDate())
                 .wikiId(entity.getWiki().getId())
                 .build();

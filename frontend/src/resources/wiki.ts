@@ -31,7 +31,7 @@ class WikiService {
 
   async findWikis( pageNumber?: number, query?: string): Promise<WikiPage> {
     const userSession = this.auth.getUserSession();
-    const url = `${this.baseUrl}?pageNumber=${pageNumber}&query=${query}&size=10`;
+    const url = `${this.baseUrl}?page=${pageNumber}&query=${query}&size=9`;
     const response = axios(url, {
       headers: {
         Authorization: `Bearer ${userSession?.accessToken}`,

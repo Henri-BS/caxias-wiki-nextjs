@@ -47,6 +47,7 @@ class AuthService {
       const userSessionToken: UserSessionToken = {
         accessToken: token.accessToken,
         email: decodedToken.sub,
+        id: decodedToken.id,
         name: decodedToken.name,
         expiration: decodedToken.exp,
       };

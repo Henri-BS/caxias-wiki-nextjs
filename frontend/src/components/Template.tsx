@@ -121,22 +121,12 @@ const Footer: React.FC = () => {
             <footer className="mt-2 bg-white rounded-t-lg shadow dark:bg-gray-900 ">
                 <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
                     <div className="sm:flex sm:items-center sm:justify-between">
-                        <a href="#" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-
+                        <a href="/" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
                             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">CaxiasWiki</span>
                         </a>
                         <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-300">
                             <li>
-                                <a href="#" className="hover:underline me-4 md:me-6">Sobre o Wiki Caxias</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:underline me-4 md:me-6">Tutorial do Site</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:underline me-4 md:me-6">Como Contribuir</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:underline">Termos de uso e privacidade</a>
+                                <a href="#" className="hover:underline me-4 md:me-6">Sobre o CaxiasWiki</a>
                             </li>
                         </ul>
                     </div>

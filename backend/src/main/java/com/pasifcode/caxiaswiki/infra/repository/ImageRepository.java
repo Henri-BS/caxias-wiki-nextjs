@@ -1,7 +1,10 @@
 package com.pasifcode.caxiaswiki.infra.repository;
 
 import com.pasifcode.caxiaswiki.domain.entity.Image;
+import com.pasifcode.caxiaswiki.domain.entity.Wiki;
 import com.pasifcode.caxiaswiki.domain.enums.ImageExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -28,4 +31,6 @@ public interface ImageRepository extends JpaRepository<Image, String>, JpaSpecif
         }
         return findAll(spec);
     }
+
+    Page<Image> findByWiki(Wiki wiki, Pageable pageable);
 }

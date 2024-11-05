@@ -22,7 +22,6 @@ public class Image {
     @Column(name = "image_id")
     private String id;
     private String name;
-    private Long size;
     @Column(columnDefinition = "TEXT")
     private String notes;
     @CreatedDate

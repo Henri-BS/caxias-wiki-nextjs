@@ -36,13 +36,14 @@ public class JwtService {
     }
 
     private Date generateExpirationDate() {
-        var expirationMinutes = 560;
+        var expirationMinutes = 180;
         LocalDateTime now = LocalDateTime.now().plusMinutes(expirationMinutes);
         return Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     private Map<String, Object> generateTokenClaims(User user) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("id", user.getId());
         claims.put("name", user.getName());
         return claims;
     }

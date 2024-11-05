@@ -22,19 +22,6 @@ public class WikiController {
     private final WikiService wikiService;
     private final WikiMapper wikiMapper;
 
-    @PostMapping
-    public ResponseEntity saveWiki(
-            @RequestParam("name") String name,
-            @RequestParam("description") String description,
-            @RequestParam("imageUrl") String imageUrl,
-            @RequestParam("tags") List<String> tags
-    ) throws IOException {
-        Wiki wiki = wikiMapper.mapToWiki(name, description, imageUrl, tags);
-        wikiService.saveWiki(wiki);
-
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<WikiDto> findWikiById(@PathVariable String id) {
         var wiki = wikiService.findById(id);
@@ -49,5 +36,28 @@ public class WikiController {
         var result = wikiService.searchWikis( pageable);
         var wikis = result.map(wikiMapper::wikiToDto);
         return ResponseEntity.ok(wikis);
+    }
+
+    @PostMapping
+    public ResponseEntity saveWiki(
+            @RequestParam String name,
+            @RequestParam String description,
+            @RequestParam String imageUrl,
+            @RequestParam List<String> tags
+    ) throws IOException {
+        Wiki wiki = wikiMapper.mapToWiki(name, description, imageUrl, tags);
+        wikiService.saveWiki(wiki);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<WikiDto> updateWiki(
+            @RequestParam String name,
+            @RequestParam String description,
+            @RequestParam String imageUrl,
+            @RequestParam String id) {
+        Wiki updateWiki = wikiService.updateWiki(name, description, imageUrl, id);
+        WikiDto dto = wikiMapper.wikiToDto(updateWiki);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 }

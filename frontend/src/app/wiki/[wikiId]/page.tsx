@@ -10,16 +10,14 @@ import { InputText, TextArea } from "@/components/input/Input";
 import { useNotification } from "@/components/notification";
 import { Pagination } from "@/components/Pagination";
 import { RenderIf, Template } from "@/components/Template";
-import { Image, ImagePage, useImageService } from "@/resources/image";
+import { ImagePage, useImageService } from "@/resources/image";
 import { useWikiService, Wiki } from "@/resources/wiki";
-import axios from "axios";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FaImage } from "react-icons/fa";
+import { FaEdit, FaImage } from "react-icons/fa";
 
 export default function WikiDetails({ params }: any) {
-    const baseUrl = "http://localhost:8080/v1/wikis";
     const wikiId = params.wikiId;
     const [wiki, setWiki] = useState<Wiki>();
     const wikiService = useWikiService();
@@ -30,7 +28,7 @@ export default function WikiDetails({ params }: any) {
         });
     }, [wikiId])
 
-    const [newImageState, setProfileContentState] = useState<boolean>(false);
+    const [newImageState, setNewImageState] = useState<boolean>(false);
     const [imagePreview, setImagePreview] = useState<string>();
     const notification = useNotification();
     const imageService = useImageService();
@@ -67,8 +65,6 @@ export default function WikiDetails({ params }: any) {
         }
     }
 
-
-
     const [pageNumber, setPageNumber] = useState(0);
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
@@ -82,9 +78,6 @@ export default function WikiDetails({ params }: any) {
             .then((response) => {
                 setImagePage(response);
                 setLoading(false);
-                if (response.content.length == 0) {
-                    notification.notify("Nenhum resultado encontrado", "warning")
-                }
             });
     }, [wikiId, pageNumber, query]);
 
@@ -101,13 +94,12 @@ export default function WikiDetails({ params }: any) {
                     </p>
                 </div>
             </div>
-
             <RenderIf condition={!newImageState}>
                 <Button type="button"
-                    style="bg-green-600 hover:bg-green-500 mx-2"
+                    style="bg-green-600 hover:bg-green-500"
                     label="Adicionar Imagem"
                     icon={<FaImage />}
-                    onClick={() => setProfileContentState(true)} />
+                    onClick={() => setNewImageState(true)} />
                 <div className="mt-5 text-2xl text-slate-800 text-justify">
                     <p>{wiki?.description} </p>
                 </div>
@@ -130,7 +122,10 @@ export default function WikiDetails({ params }: any) {
                     <div className="grid grid-cols-2 gap-4">
                         {imagePage.content?.filter((x) =>
                             x.name?.normalize("NFD").replace(/[\u0300-\u036f]/g, '').toUpperCase().includes(query.toLocaleUpperCase()) ||
-                            x.uploadDate?.normalize("NFD").replace(/[\u0300-\u036f]/g, '').toUpperCase().includes(query.toLocaleUpperCase())
+                            x.uploadDate?.normalize("NFD").replace(/[\u0300-\u036f]/g, '').toUpperCase().includes(query.toLocaleUpperCase()) ||
+                            x.name?.toUpperCase().includes(query.toLocaleUpperCase()) ||
+                            x.uploadDate?.toUpperCase().includes(query.toLocaleUpperCase())
+
                         ).map(x => (
                             <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
                                 {<ImageCard image={x} />}
@@ -145,7 +140,7 @@ export default function WikiDetails({ params }: any) {
                 <Button type="button"
                     style="bg-red-600 hover:bg-red-500 mx-2"
                     label="Cancelar"
-                    onClick={() => setProfileContentState(false)} />
+                    onClick={() => setNewImageState(false)} />
                 <RequiredLogin>
                     <section className="flex flex-col items-center justify-center my-5">
                         <span className="flex items-center gap-x-2 mt-3 mb-10 text-3xl font-extrabold tracking-tight text-gray-900">
@@ -211,7 +206,6 @@ export default function WikiDetails({ params }: any) {
                     </section>
                 </RequiredLogin>
             </RenderIf>
-
         </Template>
     );
 }

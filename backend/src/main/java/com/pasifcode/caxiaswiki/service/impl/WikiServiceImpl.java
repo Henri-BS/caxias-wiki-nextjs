@@ -15,11 +15,6 @@ public class WikiServiceImpl implements WikiService {
 
     private final WikiRepository wikiRepository;
 
-    @Override
-    @Transactional
-    public Wiki saveWiki(Wiki wiki) {
-        return wikiRepository.save(wiki);
-    }
 
     @Override
     public Page<Wiki> searchWikis(Pageable pageable){
@@ -31,7 +26,19 @@ public class WikiServiceImpl implements WikiService {
         return wikiRepository.findById(id).orElseThrow();
     }
 
+    @Override
+    @Transactional
+    public Wiki saveWiki(Wiki wiki) {
+        return wikiRepository.save(wiki);
+    }
 
-
-
+    @Override
+    public Wiki updateWiki(String name, String description, String imageUrl, String id) {
+        Wiki update = wikiRepository.findById(id).orElseThrow();
+        update.setId(update.getId());
+        update.setName(name);
+        update.setDescription(description);
+        update.setImageUrl(imageUrl);
+        return wikiRepository.save(update);
+    }
 }

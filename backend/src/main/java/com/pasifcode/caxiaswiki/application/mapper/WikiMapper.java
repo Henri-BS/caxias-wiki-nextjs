@@ -25,6 +25,7 @@ public class WikiMapper {
                 .name(entity.getName())
                 .description(entity.getDescription())
                 .imageUrl(entity.getImageUrl())
+                .tags(String.join(", ", entity.getTags()))
                 .createdDate(entity.getCreatedDate())
                 .build();
     }

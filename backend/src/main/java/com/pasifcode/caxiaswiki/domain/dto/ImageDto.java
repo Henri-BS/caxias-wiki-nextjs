@@ -13,7 +13,6 @@ public class ImageDto {
     private String name;
     private String notes;
     private String extension;
-    private Long size;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime uploadDate;
     private String wikiId;

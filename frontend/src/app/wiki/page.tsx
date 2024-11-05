@@ -9,6 +9,7 @@ import Link from "next/link";
 import { WikiCard } from "@/components/card/WikiCard";
 import { InputText } from "@/components/input/Input";
 import { Pagination } from "@/components/Pagination";
+import { IoBook } from "react-icons/io5";
 
 export default function Wikis() {
 
@@ -21,14 +22,14 @@ export default function Wikis() {
     const handlePageChange = (newPageNumber: number) => {
         setPageNumber(newPageNumber);
     }
-    const [wikiPage, setWikiPage] = useState<WikiPage>({ content: [], number: 0, totalElements: 0, pageable:{pageSize:0, pageNumber:0} } );
+    const [wikiPage, setWikiPage] = useState<WikiPage>({ content: [], number: 0, totalElements: 0, pageable: { pageSize: 0, pageNumber: 0 } });
 
     useEffect(() => {
         wikiService.findWikis(pageNumber, query)
             .then((response) => {
                 setWikiPage(response);
                 setLoading(false);
-                if(response.content.length == 0){
+                if (response.content.length == 0) {
                     notification.notify("Nenhum resultado encontrado", "warning")
                 }
             });
@@ -38,7 +39,7 @@ export default function Wikis() {
         <>
             <Template loading={loading}>
                 <div className="flex items-center justify-between my-5" >
-                    <div className="flex space-x-4">
+                    <div className="flex justify-between space-x-4 w-full">
 
                         <InputText
                             id="query"
@@ -48,23 +49,26 @@ export default function Wikis() {
                         <Link href="/wiki/adicionar">
                             <Button type="button"
                                 style="bg-green-600 hover:bg-green-500"
-                                label="Adicionar Wiki" />
+                                label="Adicionar Wiki"
+                                icon={<IoBook />} />
+
                         </Link>
                     </div>
                 </div>
                 <div className="flex items-start w-full justify-center mb-12">
-                            <Pagination pagination={wikiPage} onPageChange={handlePageChange} />
-                        </div>
-                <div className="grid grid-cols-2 gap-4">
+                    <Pagination pagination={wikiPage} onPageChange={handlePageChange} />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {wikiPage.content?.filter((x) =>
+                        x.name?.toUpperCase().includes(query.toLocaleUpperCase()) ||
+                        x.tags?.toUpperCase().includes(query.toLocaleUpperCase()) ||
                         x.name?.normalize("NFD").replace(/[\u0300-\u036f]/g, '').toUpperCase().includes(query.toLocaleUpperCase()) ||
                         x.tags?.normalize("NFD").replace(/[\u0300-\u036f]/g, '').toUpperCase().includes(query.toLocaleUpperCase())
-                    )
-                        .map(x => (
-                            <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
-                                {<WikiCard wiki={x} />}
-                            </div>
-                        ))}
+                    ).map((x) => (
+                        <div key={x.id} className="relative flex flex-col sm:flex-row xl:flex-col items-start ">
+                            {<WikiCard wiki={x} />}
+                        </div>
+                    ))}
                 </div>
             </Template>
         </>
