@@ -26,7 +26,7 @@ export type WikiProps = {
 };
 
 class WikiService {
-  baseUrl: string = "http://localhost:8080/v1/wikis";
+  baseUrl: string = process.env.NEXT_PUBLIC_API_URL + "/v1/wikis";
   auth = useAuth();
 
   async findWikis( pageNumber?: number, query?: string): Promise<WikiPage> {

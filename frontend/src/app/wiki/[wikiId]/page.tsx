@@ -15,7 +15,7 @@ import { useWikiService, Wiki } from "@/resources/wiki";
 import { useFormik } from "formik";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FaEdit, FaImage } from "react-icons/fa";
+import { FaBook, FaEdit, FaImage } from "react-icons/fa";
 
 export default function WikiDetails({ params }: any) {
     const wikiId = params.wikiId;
@@ -94,6 +94,12 @@ export default function WikiDetails({ params }: any) {
                     </p>
                 </div>
             </div>
+            <Link href={`/wiki/editar/${wikiId}`}>
+                <Button type="button"
+                    style="bg-blue-600 hover:bg-blue-500"
+                    label="Editar Wiki"
+                    icon={<FaEdit />} />
+            </Link>
             <RenderIf condition={!newImageState}>
                 <Button type="button"
                     style="bg-green-600 hover:bg-green-500"
@@ -144,7 +150,7 @@ export default function WikiDetails({ params }: any) {
                 <RequiredLogin>
                     <section className="flex flex-col items-center justify-center my-5">
                         <span className="flex items-center gap-x-2 mt-3 mb-10 text-3xl font-extrabold tracking-tight text-gray-900">
-                            Adicionar Nova Imagem <FaImage />
+                            Editar Wiki <FaBook />
                         </span>
                         <form onSubmit={formik.handleSubmit} className="w-1/2">
                             <div className="grid grid-cols-1">
