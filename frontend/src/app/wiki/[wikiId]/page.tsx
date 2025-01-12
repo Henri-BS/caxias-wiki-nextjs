@@ -94,12 +94,6 @@ export default function WikiDetails({ params }: any) {
                     </p>
                 </div>
             </div>
-            <Link href={`/wiki/editar/${wikiId}`}>
-                <Button type="button"
-                    style="bg-blue-600 hover:bg-blue-500"
-                    label="Editar Wiki"
-                    icon={<FaEdit />} />
-            </Link>
             <RenderIf condition={!newImageState}>
                 <Button type="button"
                     style="bg-green-600 hover:bg-green-500"

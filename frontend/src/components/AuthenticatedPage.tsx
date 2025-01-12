@@ -35,7 +35,7 @@ export const RequiredLogin: React.FC<AuthenticatedPageProps> = ({
             <div className="flex flex-row items-center gap-x-2 p-16 justify-center">
                 <span className="text-xl">Você precisa fazer login para poder publicar</span>
                 <Link href={"/login"}>
-                    <Button style="border  border-sky-800 hover:border-sky-500  text-gray-800"
+                    <Button style="border bg-sky-800 hover:border-sky-500 "
                         label={"Login"}
                         icon={<IoLogInOutline />}
                     />
