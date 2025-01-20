@@ -8,15 +8,16 @@ também pode-se usar os botões de paginação para visualizar as demais página
 
 ![Menu1](https://github.com/Henri-BS/caxias-wiki/blob/main/images/menu_1.png)
 
+## Autenticação de Usuário
+A autenticação de usuário é um processo fundamental garantir a segurança do sistema, utilizado para verificar se um usuário tem permição para acessar uma parte do sistema ou recurso protegido. É essencial para controle de acesso e é crucial para proteger informações sensíveis e evitar acessos não autorizados através do cadastro e login.
 
-## Cadastro
-
+- ### Cadastro
 Para poser publicar novos conteúdos na plataforma, é necessário fazer um cadastro de um novo usuário e estar logado. 
 Para cadastrar o usuário é necessário inserir o nome de usuário, email, senha e a confirmação da senha. 
 
 ![Cadastro](https://github.com/Henri-BS/caxias-wiki/blob/main/images/register.png)
 
-#### Login
+- ### Login
 Para logar o usuário registrado será necessário o email e a senha
 ![Login](https://github.com/Henri-BS/caxias-wiki/blob/main/images/login.png)
 
